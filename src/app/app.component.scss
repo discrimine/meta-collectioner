@@ -1,0 +1,19 @@
+.main-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+
+    .content {
+        width: 100%;
+        display: flex;
+        height: calc(100vh - 100px);
+    
+        .profile {
+            width: 25%;
+        }
+    
+        .details {
+            width: 75%;
+            max-width: 75%;
+        }
+    }
+}

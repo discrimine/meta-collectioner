@@ -1,0 +1,54 @@
+:host {
+    padding: 20px;
+}
+
+.collection-tools {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .collection-tools__search {
+        flex: 1;
+    }
+
+    .collection-tools__icon {
+        height: 36px;
+        width: 36px;
+        font-size: 36px;
+        padding: 5px;
+        padding-bottom: 22px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.collection-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(166px, 1fr));
+    grid-gap: 10px 15px;
+    grid-auto-flow: row dense;
+    padding: 20px;
+}
+
+.anime-card {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 0 1px #ddd, 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 5px;
+    box-sizing: border-box;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5px;
+        text-align: center;
+    }
+}

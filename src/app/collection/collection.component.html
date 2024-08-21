@@ -1,0 +1,18 @@
+<div class="collection-tools">
+    <mat-form-field class="collection-tools__search">
+        <input matInput placeholder="Search" value="">
+    </mat-form-field>
+    <mat-icon class="collection-tools__icon">sort</mat-icon>
+    <mat-icon class="collection-tools__icon">add_circle</mat-icon>
+</div>
+
+<div class="collection-container">
+    @for (animeEntity of anime; track animeEntity.id) {
+    <div class="anime-card">
+        <img [src]="animeEntity.cover">
+        <span> {{animeEntity.title}} </span>
+    </div>
+    } @empty {
+    No added anime yet
+    }
+</div>
