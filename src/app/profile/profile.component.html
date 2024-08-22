@@ -1,7 +1,12 @@
-<img class="profile_avatar" src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png">
+<img class="profile_avatar"
+    src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png">
 
-@for (item of collections; track $index) {
-    <div></div>{{ item }}
-} @empty {
-    No added anime yet
-}
+<mat-list class="profile_collections">
+    @for (item of collections; track $index) {
+    <mat-list-item [routerLink]="['collections', item.path]" class="profile_collections__item">{{ item.title }}</mat-list-item>
+    <mat-divider></mat-divider>
+    } @empty {
+    No added items yet
+    }
+    <mat-list-item routerLink="/collections/addcollection" class="profile_collections__item">Add collection</mat-list-item>
+</mat-list>

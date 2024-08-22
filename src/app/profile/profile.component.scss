@@ -1,4 +1,26 @@
+:host {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
 .profile_avatar {
     width: 180px;
     height: 180px;
 }
+
+.profile_collections {
+    width: 100%;
+    padding: 10px 40px;
+    box-sizing: border-box;
+
+    .profile_collections__item {
+        text-align: center;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+

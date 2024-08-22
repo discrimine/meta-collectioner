@@ -38,10 +38,11 @@
     box-shadow: 0 0 0 1px #ddd, 0 2px 8px rgba(0, 0, 0, 0.08);
     padding: 5px;
     box-sizing: border-box;
+    border-radius: 5px;
 
     img {
         width: 100%;
-        height: 100%;
+        height: 250px;
     }
 
     span {
