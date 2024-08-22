@@ -6,7 +6,7 @@
     <mat-list-item [routerLink]="['collections', item.path]" class="profile_collections__item">{{ item.title }}</mat-list-item>
     <mat-divider></mat-divider>
     } @empty {
-    No added items yet
+    <div class="profile_collections__empty"> No added collections yet </div>
     }
-    <mat-list-item routerLink="/collections/addcollection" class="profile_collections__item">Add collection</mat-list-item>
 </mat-list>
+<button mat-raised-button (click)="openAddCollectionDialog()">Add collection</button>

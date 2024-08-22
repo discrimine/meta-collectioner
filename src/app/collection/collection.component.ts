@@ -6,11 +6,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-collection',
   standalone: true,
-  imports: [HttpClientModule, MatInputModule, MatIconModule],
+  imports: [HttpClientModule, MatInputModule, MatIconModule, MatCardModule],
   templateUrl: './collection.component.html',
   styleUrl: './collection.component.scss'
 })

@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Add a new collection</h2>
+<mat-dialog-content class="mat-typography">
+    <h3>Choose from existing</h3>
+    <mat-form-field>
+        <mat-label>Select</mat-label>
+        <mat-select>
+            <mat-option value="one">First option</mat-option>
+            <mat-option value="two">Second option</mat-option>
+        </mat-select>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Add</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Cancel</button>
+</mat-dialog-actions>

@@ -8,10 +8,12 @@
 
 <div class="collection-container">
     @for (animeEntity of anime; track animeEntity.id) {
-    <div class="anime-card">
-        <img [src]="animeEntity.cover">
-        <span> {{animeEntity.title}} </span>
-    </div>
+        <mat-card appearance="outlined" class="anime-card">
+            <mat-card-content>
+                <img [src]="animeEntity.cover">
+                <span> {{animeEntity.title}} </span>
+            </mat-card-content>
+        </mat-card>
     } @empty {
     No added anime yet
     }
