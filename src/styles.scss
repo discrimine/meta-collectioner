@@ -1,5 +1,15 @@
+@use "@angular/material" as mat;
+@import url("@angular/material/prebuilt-themes/indigo-pink.css"); //change to own theme
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+
 body {
-    margin: 0;
+  margin: 0;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
