@@ -1,0 +1,33 @@
+.new_collection_select_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .new_collection_select {
+        flex-grow: 1;
+    }
+
+    .clear_selection_button {
+        margin-bottom: 22px; // material input default bottom margin
+        margin-left: 5px;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+
+        .clear_selection_icon {
+            font-size: 15px;
+            height: 15px;
+            width: 15px;
+        }
+    }
+}
+
+.add_collection_input {
+    width: 100%;
+}
+
+.new_collection_error {
+    width: 100%;
+    min-height: 22px; // mat error height
+}

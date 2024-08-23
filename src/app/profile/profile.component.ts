@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import {
   MatDialog
 } from '@angular/material/dialog';
-import { AddCollectionDialogComponent } from '../shared/components/add-collection-dialog/add-collection-dialog.component';
+import { AddCollectionDialogComponent } from './shared/components/add-collection-dialog/add-collection-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
 
   private subscriptions = new Subscription();
 
-  constructor(private profileService: ProfileService, private myCollectionsService: MyCollectionsService) { }
+  constructor(private myCollectionsService: MyCollectionsService) { }
 
   ngOnInit(): void {
     this.subscriptions.add(
@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
 
   public openAddCollectionDialog(): void {
     this.dialog.open(AddCollectionDialogComponent, {
-      width: '250px'
+      width: '300px',
     });
   }
 }
