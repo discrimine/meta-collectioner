@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Collection } from '../interfaces/profile.interfaces';
 
 @Injectable({
@@ -12,11 +12,24 @@ export class MyCollectionsService {
 		return of(JSON.parse(localStorage.getItem('collections') || '[]'));
 	}
 
-	public addCollection() {
-		const collections = JSON.parse(
+	public addCollection(newCollection: Collection): Observable<Collection[]> {
+		const collections: Collection[] = JSON.parse(
 			localStorage.getItem('collections') || '[]'
 		);
-		collections.collectionName = [];
-		localStorage.setItem('collections', collections);
+
+		if (
+			collections.find(
+				collection => collection.title === newCollection.title
+			)
+		) {
+			return throwError(
+				() => new Error('This collection is already exist')
+			);
+		} else {
+			collections.push(newCollection);
+			localStorage.setItem('collections', JSON.stringify(collections));
+
+			return of(collections);
+		}
 	}
 }

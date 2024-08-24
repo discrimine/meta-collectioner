@@ -4,7 +4,7 @@
 	alt="avatar" />
 
 <mat-list class="profile_collections">
-	@for (item of collections; track $index) {
+	@for (item of collections; track item.id) {
 		<mat-list-item
 			[routerLink]="['collections', item.path]"
 			class="profile_collections__item"

@@ -37,8 +37,14 @@ export class ProfileComponent implements OnInit {
 	}
 
 	public openAddCollectionDialog(): void {
-		this.dialog.open(AddCollectionDialogComponent, {
+		const dialofRef = this.dialog.open(AddCollectionDialogComponent, {
 			width: '300px',
+		});
+
+		dialofRef.afterClosed().subscribe(collections => {
+			if (collections?.length) {
+				this.collections = collections;
+			}
 		});
 	}
 }
