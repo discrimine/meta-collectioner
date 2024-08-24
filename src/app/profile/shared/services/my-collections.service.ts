@@ -3,19 +3,20 @@ import { Observable, of } from 'rxjs';
 import { Collection } from '../interfaces/profile.interfaces';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root',
 })
 export class MyCollectionsService {
+	constructor() {}
 
-  constructor() { }
+	public getCollections(): Observable<Collection[]> {
+		return of(JSON.parse(localStorage.getItem('collections') || '[]'));
+	}
 
-  public getCollections(): Observable<Collection[]> {
-    return of(JSON.parse(localStorage.getItem('collections') || '[]'))
-  }
-
-  public addCollection(collectionName: string) {
-    const collections = JSON.parse(localStorage.getItem('collections') || '[]');
-    collections.collectionName = [];
-    localStorage.setItem('collections', collections);
-  }
+	public addCollection() {
+		const collections = JSON.parse(
+			localStorage.getItem('collections') || '[]'
+		);
+		collections.collectionName = [];
+		localStorage.setItem('collections', collections);
+	}
 }

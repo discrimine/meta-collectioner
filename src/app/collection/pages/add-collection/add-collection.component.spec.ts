@@ -3,21 +3,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddCollectionComponent } from './add-collection.component';
 
 describe('AddCollectionComponent', () => {
-  let component: AddCollectionComponent;
-  let fixture: ComponentFixture<AddCollectionComponent>;
+	let component: AddCollectionComponent;
+	let fixture: ComponentFixture<AddCollectionComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AddCollectionComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(AddCollectionComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [AddCollectionComponent],
+		}).compileComponents();
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+		fixture = TestBed.createComponent(AddCollectionComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
+
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

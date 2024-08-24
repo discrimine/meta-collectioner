@@ -1,12 +1,20 @@
-<img class="profile_avatar"
-    src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png">
+<img
+	class="profile_avatar"
+	src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"
+	alt="avatar" />
 
 <mat-list class="profile_collections">
-    @for (item of collections; track $index) {
-    <mat-list-item [routerLink]="['collections', item.path]" class="profile_collections__item">{{ item.title }}</mat-list-item>
-    <mat-divider></mat-divider>
-    } @empty {
-    <div class="profile_collections__empty"> No added collections yet </div>
-    }
+	@for (item of collections; track $index) {
+		<mat-list-item
+			[routerLink]="['collections', item.path]"
+			class="profile_collections__item"
+			>{{ item.title }}</mat-list-item
+		>
+		<mat-divider></mat-divider>
+	} @empty {
+		<div class="profile_collections__empty">No added collections yet</div>
+	}
 </mat-list>
-<button mat-raised-button (click)="openAddCollectionDialog()">Add collection</button>
+<button mat-raised-button (click)="openAddCollectionDialog()">
+	Add collection
+</button>
