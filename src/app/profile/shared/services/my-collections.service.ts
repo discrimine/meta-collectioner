@@ -32,4 +32,18 @@ export class MyCollectionsService {
 			return of(collections);
 		}
 	}
+
+	public removeCollection(collectionId: string): Observable<Collection[]> {
+		let collections: Collection[] = JSON.parse(
+			localStorage.getItem('collections') || '[]'
+		);
+
+		collections = collections.filter(
+			collection => collection.id !== collectionId
+		);
+
+		localStorage.setItem('collections', JSON.stringify(collections));
+
+		return of(collections);
+	}
 }

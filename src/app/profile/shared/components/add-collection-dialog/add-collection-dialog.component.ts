@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {
@@ -12,11 +12,8 @@ import {
 	ReactiveFormsModule,
 	ValidationErrors,
 } from '@angular/forms';
-import { Collection } from '../../interfaces/profile.interfaces';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { MyCollectionsService } from '../../services/my-collections.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-add-collection-dialog',
@@ -45,26 +42,14 @@ export class AddCollectionDialogComponent {
 			validators: this.oneFieldFilledValidator,
 		}
 	);
-	private snackBar = inject(MatSnackBar);
-	public newCollection: Collection = { id: '', title: '', path: '' };
 
 	constructor(
 		public dialogRef: MatDialogRef<AddCollectionDialogComponent>,
-		private fb: FormBuilder,
-		private myCollectionService: MyCollectionsService
+		private fb: FormBuilder
 	) {}
 
-	public onNewCollectionChange(e: MatSelectChange) {
-		this.newCollection.id =
-			Date.now().toString(36) + Math.random().toString(36).slice(2, 11);
-		this.newCollection.title = e.value;
-		this.newCollection.path = (e.value as string)
-			.replace(' ', '')
-			.toLowerCase();
-	}
-
 	public clearSelection(): void {
-		this.newCollection = { id: '', title: '', path: '' };
+		this.newCollectionForm.get('select')?.setValue('');
 	}
 
 	public oneFieldFilledValidator(
@@ -81,18 +66,16 @@ export class AddCollectionDialogComponent {
 	}
 
 	public saveNewCollection(): void {
-		this.myCollectionService.addCollection(this.newCollection).subscribe({
-			next: collections => {
-				this.dialogRef.close(collections);
-			},
-			error: error => {
-				this.snackBar.open(error, 'close', {
-					duration: 5000,
-					horizontalPosition: 'center',
-					verticalPosition: 'top',
-					panelClass: ['error-snackbar'],
-				});
-			},
+		const newCollectionName =
+			this.newCollectionForm.get('select')?.value ||
+			this.newCollectionForm.get('input')?.value;
+
+		this.dialogRef.close({
+			id:
+				Date.now().toString(36) +
+				Math.random().toString(36).slice(2, 11),
+			title: newCollectionName,
+			path: newCollectionName.replace(' ', '').toLowerCase(),
 		});
 	}
 }

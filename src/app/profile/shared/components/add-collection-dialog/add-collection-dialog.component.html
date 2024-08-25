@@ -5,10 +5,7 @@
 		<div class="new_collection_select_container">
 			<mat-form-field class="new_collection_select">
 				<mat-label>Select</mat-label>
-				<mat-select
-					formControlName="select"
-					[value]="newCollection.title"
-					(selectionChange)="onNewCollectionChange($event)">
+				<mat-select formControlName="select">
 					<mat-option value="Books">Books</mat-option>
 					<mat-option value="Anime">Anime</mat-option>
 					<mat-option value="TV shows">TV shows</mat-option>
@@ -17,9 +14,10 @@
 			</mat-form-field>
 			<button
 				class="clear_selection_button"
-				*ngIf="newCollection.title"
+				*ngIf="newCollectionForm.get('select')?.value"
 				mat-icon-button
 				color="primary"
+				type="button"
 				(click)="clearSelection()">
 				<mat-icon class="clear_selection_icon">close</mat-icon>
 			</button>
@@ -38,7 +36,7 @@
 					newCollectionForm.dirty &&
 					newCollectionForm.hasError('bothOrNoneFilled')
 				"
-				>Please, choose only one option</mat-error
+				>Please, choose one option</mat-error
 			>
 		</div>
 		<div class="action_buttons">
@@ -48,7 +46,7 @@
 				[disabled]="!newCollectionForm.valid">
 				Add
 			</button>
-			<button mat-button [mat-dialog-close]="true" cdkFocusInitial>
+			<button mat-button [mat-dialog-close]="false" cdkFocusInitial>
 				Cancel
 			</button>
 		</div>
