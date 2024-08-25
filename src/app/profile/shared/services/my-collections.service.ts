@@ -1,21 +1,49 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Collection } from '../interfaces/profile.interfaces';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root',
 })
 export class MyCollectionsService {
+	constructor() {}
 
-  constructor() { }
+	public getCollections(): Observable<Collection[]> {
+		return of(JSON.parse(localStorage.getItem('collections') || '[]'));
+	}
 
-  public getCollections(): Observable<Collection[]> {
-    return of(JSON.parse(localStorage.getItem('collections') || '[]'))
-  }
+	public addCollection(newCollection: Collection): Observable<Collection[]> {
+		const collections: Collection[] = JSON.parse(
+			localStorage.getItem('collections') || '[]'
+		);
 
-  public addCollection(collectionName: string) {
-    const collections = JSON.parse(localStorage.getItem('collections') || '[]');
-    collections.collectionName = [];
-    localStorage.setItem('collections', collections);
-  }
+		if (
+			collections.find(
+				collection => collection.title === newCollection.title
+			)
+		) {
+			return throwError(
+				() => new Error('This collection is already exist')
+			);
+		} else {
+			collections.push(newCollection);
+			localStorage.setItem('collections', JSON.stringify(collections));
+
+			return of(collections);
+		}
+	}
+
+	public removeCollection(collectionId: string): Observable<Collection[]> {
+		let collections: Collection[] = JSON.parse(
+			localStorage.getItem('collections') || '[]'
+		);
+
+		collections = collections.filter(
+			collection => collection.id !== collectionId
+		);
+
+		localStorage.setItem('collections', JSON.stringify(collections));
+
+		return of(collections);
+	}
 }

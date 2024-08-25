@@ -1,31 +1,74 @@
 :host {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px 0;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 20px 40px;
+	box-sizing: border-box;
 }
 
 .profile_avatar {
-    width: 180px;
-    height: 180px;
+	width: 180px;
+	height: 180px;
+	border-radius: 10px;
+	background-color: #809fd5; //TODO: create a separate file for color variables
 }
 
 .profile_collections {
-    width: 100%;
-    padding: 10px 40px;
-    box-sizing: border-box;
+	width: 100%;
 
-    .profile_collections__item {
-        text-align: center;
+	.profile_collections__item {
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: center;
+		text-align: center;
+		position: relative;
+		height: 56px;
+		background-color: #befaff;
+		border-radius: 5px;
+		margin-top: 10px;
 
-        &:hover {
-            cursor: pointer;
-        }
-    }
+		&:hover {
+			cursor: pointer;
+		}
 
-    .profile_collections__empty {
-        text-align: center;
-        padding: 10px 0;
-    }
+		.profile_collections__icon {
+			position: absolute;
+			right: 10px;
+			margin: 0;
+		}
+	}
+
+	.profile_collections__empty {
+		text-align: center;
+		padding: 10px 0;
+	}
 }
 
+.profile_actions {
+	margin-top: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	background-color: cornflowerblue;
+	border-radius: 5px;
+	height: 55px;
+
+	.profile_actions__add {
+		margin-left: 5px;
+	}
+
+	.profile_actions__delete {
+		margin-left: 10px;
+		width: 34px;
+		height: 34px;
+		margin-right: 5px;
+
+		mat-icon {
+			font-size: 22px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+}

@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AnimeService } from './anime.service';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root',
 })
 export class CollectionAdapterService {
+	constructor() {}
 
-  constructor(private animeService: AnimeService) { }
-
-  public getCollection(collection: string) {
-
-  }
+	public getCollection() {}
 }
