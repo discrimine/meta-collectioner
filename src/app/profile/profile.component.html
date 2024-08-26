@@ -21,21 +21,21 @@
 
 <mat-list class="profile_collections">
 	@for (item of collections; track item.id) {
-	<mat-list-item
-		[routerLink]="['collections', item.path]"
-		class="profile_collections__item">
-		<span matLine> {{ item.title }} </span>
-		<mat-icon
-			(click)="removeCollection(item)"
-			color="warn"
-			*ngIf="isDeleteMode"
-			class="profile_collections__icon"
-			>delete</mat-icon
-		>
-	</mat-list-item>
+		<mat-list-item
+			[routerLink]="['collections', item.path]"
+			class="profile_collections__item">
+			<span matLine> {{ item.title }} </span>
+			<mat-icon
+				(click)="removeCollection(item)"
+				color="warn"
+				*ngIf="isDeleteMode"
+				class="profile_collections__icon"
+				>delete</mat-icon
+			>
+		</mat-list-item>
 
-	<mat-divider></mat-divider>
+		<mat-divider></mat-divider>
 	} @empty {
-	<div class="profile_collections__empty">No added collections yet</div>
+		<div class="profile_collections__empty">No added collections yet</div>
 	}
 </mat-list>
