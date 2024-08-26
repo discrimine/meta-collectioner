@@ -3,6 +3,22 @@
 	src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"
 	alt="avatar" />
 
+<div class="profile_actions">
+	<button
+		mat-raised-button
+		(click)="openAddCollectionDialog()"
+		class="profile_actions__add">
+		Add collection
+	</button>
+	<button
+		(click)="isDeleteMode = !isDeleteMode"
+		color="warn"
+		class="profile_actions__delete"
+		mat-mini-fab>
+		<mat-icon>delete</mat-icon>
+	</button>
+</div>
+
 <mat-list class="profile_collections">
 	@for (item of collections; track item.id) {
 		<mat-list-item
@@ -23,15 +39,3 @@
 		<div class="profile_collections__empty">No added collections yet</div>
 	}
 </mat-list>
-<div class="profile_actions">
-	<button mat-raised-button (click)="openAddCollectionDialog()">
-		Add collection
-	</button>
-	<button
-		(click)="isDeleteMode = !isDeleteMode"
-		color="warn"
-		class="profile_actions__delete"
-		mat-mini-fab>
-		<mat-icon>delete</mat-icon>
-	</button>
-</div>

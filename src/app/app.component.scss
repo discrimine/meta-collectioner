@@ -1,19 +1,23 @@
 .main-wrapper {
-    max-width: 1280px;
-    margin: 0 auto;
+	.content {
+		width: 100%;
+		display: flex;
+		height: calc(100vh - 130px);
+		padding: 20px;
+		box-sizing: border-box;
+		background: radial-gradient(
+			circle,
+			rgba(237, 237, 237, 1) 16%,
+			rgba(144, 195, 231, 1) 100%
+		);
 
-    .content {
-        width: 100%;
-        display: flex;
-        height: calc(100vh - 100px);
-    
-        .profile {
-            width: 25%;
-        }
-    
-        .details {
-            width: 75%;
-            max-width: 75%;
-        }
-    }
+		.profile {
+			width: 25%;
+		}
+
+		.details {
+			width: 75%;
+			max-width: 75%;
+		}
+	}
 }

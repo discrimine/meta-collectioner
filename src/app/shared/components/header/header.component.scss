@@ -1,7 +1,27 @@
-:host {
-    display: block;
-    border: 1px solid black;
-    height: 50px;
-    width: 100%;
-    box-sizing: border-box;
+.header_toolbar {
+	display: block;
+	height: 65px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.logo {
+	height: 40px;
+	margin-right: 20px;
+}
+
+.header_title {
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+}
+
+.header_toolbar__logo,
+.header_toolbar__actions {
+	display: flex;
+	align-items: center;
 }
