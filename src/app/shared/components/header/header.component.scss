@@ -6,6 +6,7 @@
 	padding: 0 20px;
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 }
 
 .logo {
@@ -19,18 +20,7 @@
 	color: white;
 }
 
-.spacer {
-	flex: 1;
-}
-
-button.mat-button {
-	color: white;
-}
-
-button.mat-icon-button {
-	color: white;
-}
-
-.test {
-    
+.header_toolbar__logo, .header_toolbar__actions {
+	display: flex;
+	align-items: center;
 }

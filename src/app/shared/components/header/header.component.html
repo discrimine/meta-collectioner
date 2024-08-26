@@ -1,11 +1,15 @@
 <mat-toolbar color="primary" class="header_toolbar">
-	<img src="assets/images/logo.png" alt="Logo" class="logo" />
-	<span class="header_title">Meta Collectioner</span>
-	<span class="spacer"></span>
-	<button mat-button>Home</button>
-	<button mat-button>About</button>
-	<button mat-button>Contact</button>
-	<button mat-icon-button>
-		<mat-icon>account_circle</mat-icon>
-	</button>
+	<div class="header_toolbar__logo">
+		<img src="assets/images/logo.png" alt="Logo" class="logo" />
+		<span class="header_title">Meta Collectioner</span>
+	</div>
+
+	<div class="header_toolbar__actions">
+		<button mat-button>Home</button>
+		<button mat-button>Collections</button>
+		<button mat-button>About</button>
+		<button mat-icon-button>
+			<mat-icon>account_circle</mat-icon>
+		</button>
+	</div>
 </mat-toolbar>
