@@ -1,32 +1,32 @@
 .header_toolbar {
-  display: block;
-  height: 65px;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
+	display: block;
+	height: 65px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0 20px;
+	display: flex;
+	align-items: center;
 }
 
 .logo {
-  height: 40px;
-  margin-right: 20px;
+	height: 40px;
+	margin-right: 20px;
 }
 
 .header_title {
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
 }
 
 .spacer {
-  flex: 1;
+	flex: 1;
 }
 
 button.mat-button {
-  color: white;
+	color: white;
 }
 
 button.mat-icon-button {
-  color: white;
+	color: white;
 }
