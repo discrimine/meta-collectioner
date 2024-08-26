@@ -16,7 +16,7 @@
         "plugin:prettier/recommended"
       ],
       "rules": {
-		"linebreak-style": ["warn", "unix"],
+		"linebreak-style": ["error", "unix"],
         "@angular-eslint/directive-selector": [
           "error",
           {
