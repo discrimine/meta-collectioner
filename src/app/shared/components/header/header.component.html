@@ -5,9 +5,9 @@
 	</div>
 
 	<div class="header_toolbar__actions">
-		<button mat-button>Home</button>
-		<button mat-button>Collections</button>
-		<button mat-button>About</button>
+		<button mat-button (click)="goToHome()">Home</button>
+		<button mat-button (click)="goToCollections()">Collections</button>
+		<button mat-button (click)="goToAbout()">About</button>
 		<button mat-icon-button>
 			<mat-icon>account_circle</mat-icon>
 		</button>
