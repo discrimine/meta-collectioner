@@ -9,11 +9,13 @@
 .profile_avatar {
     width: 180px;
     height: 180px;
+    border-radius: 10px;
+    background-color: #809fd5; //TODO: create a separate file for color variables
 }
 
 .profile_collections {
     width: 100%;
-    
+
     .profile_collections__item {
         display: flex;
         flex-direction: row-reverse;
@@ -21,6 +23,9 @@
         text-align: center;
         position: relative;
         height: 56px;
+        background-color: #befaff;
+        border-radius: 5px;
+        margin-top: 10px;
 
         &:hover {
             cursor: pointer;
@@ -45,13 +50,20 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    background-color: cornflowerblue;
+    border-radius: 5px;
+    height: 55px;
+
+    .profile_actions__add {
+        margin-left: 5px;
+    }
 
     .profile_actions__delete {
         margin-left: 10px;
         width: 34px;
         height: 34px;
         margin-right: 5px;
-        
+
         mat-icon {
             font-size: 22px;
             display: flex;
