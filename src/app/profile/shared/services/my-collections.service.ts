@@ -18,13 +18,9 @@ export class MyCollectionsService {
 		);
 
 		if (
-			collections.find(
-				collection => collection.title === newCollection.title
-			)
+			collections.find(collection => collection.title === newCollection.title)
 		) {
-			return throwError(
-				() => new Error('This collection is already exist')
-			);
+			return throwError(() => new Error('This collection is already exist'));
 		} else {
 			collections.push(newCollection);
 			localStorage.setItem('collections', JSON.stringify(collections));

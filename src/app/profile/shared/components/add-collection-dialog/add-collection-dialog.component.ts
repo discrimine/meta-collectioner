@@ -71,9 +71,7 @@ export class AddCollectionDialogComponent {
 			this.newCollectionForm.get('input')?.value;
 
 		this.dialogRef.close({
-			id:
-				Date.now().toString(36) +
-				Math.random().toString(36).slice(2, 11),
+			id: Date.now().toString(36) + Math.random().toString(36).slice(2, 11),
 			title: newCollectionName,
 			path: newCollectionName.replace(' ', '').toLowerCase(),
 		});
