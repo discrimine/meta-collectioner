@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-	providedIn: 'root',
+    providedIn: 'root',
 })
 export class CollectionAdapterService {
-	constructor() {}
+    constructor() {}
 
-	public getCollection() {}
+    public getCollection() {}
 }

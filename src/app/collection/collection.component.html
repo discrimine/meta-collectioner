@@ -1,20 +1,20 @@
 <div class="collection-tools">
-	<mat-form-field class="collection-tools__search">
-		<input matInput placeholder="Search" value="" />
-	</mat-form-field>
-	<mat-icon class="collection-tools__icon">sort</mat-icon>
-	<mat-icon class="collection-tools__icon">add_circle</mat-icon>
+    <mat-form-field class="collection-tools__search">
+        <input matInput placeholder="Search" value="" />
+    </mat-form-field>
+    <mat-icon class="collection-tools__icon">sort</mat-icon>
+    <mat-icon class="collection-tools__icon">add_circle</mat-icon>
 </div>
 
 <div class="collection-container">
-	@for (animeEntity of anime; track animeEntity.id) {
-		<mat-card appearance="outlined" class="anime-card">
-			<mat-card-content>
-				<img [src]="animeEntity.cover" [alt]="animeEntity.title" />
-				<span> {{ animeEntity.title }} </span>
-			</mat-card-content>
-		</mat-card>
-	} @empty {
-		No added anime yet
-	}
+    @for (animeEntity of anime; track animeEntity.id) {
+        <mat-card appearance="outlined" class="anime-card">
+            <mat-card-content>
+                <img [src]="animeEntity.cover" [alt]="animeEntity.title" />
+                <span> {{ animeEntity.title }} </span>
+            </mat-card-content>
+        </mat-card>
+    } @empty {
+        No added anime yet
+    }
 </div>

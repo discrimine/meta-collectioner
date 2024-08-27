@@ -1,15 +1,15 @@
 <mat-toolbar color="primary" class="header_toolbar">
-	<div class="header_toolbar__logo">
-		<img src="assets/images/logo.png" alt="Logo" class="logo" />
-		<span class="header_title">Meta Collectioner</span>
-	</div>
+    <div class="header_toolbar__logo">
+        <img src="assets/images/logo.png" alt="Logo" class="logo" />
+        <span class="header_title">Meta Collectioner</span>
+    </div>
 
-	<div class="header_toolbar__actions">
-		<button mat-button (click)="goToHome()">Home</button>
-		<button mat-button (click)="goToCollections()">Collections</button>
-		<button mat-button (click)="goToAbout()">About</button>
-		<button mat-icon-button>
-			<mat-icon>account_circle</mat-icon>
-		</button>
-	</div>
+    <div class="header_toolbar__actions">
+        <button mat-button routerLink="/">Home</button>
+        <button mat-button routerLink="/collections">Collections</button>
+        <button mat-button routerLink="/about">About</button>
+        <button mat-icon-button>
+            <mat-icon>account_circle</mat-icon>
+        </button>
+    </div>
 </mat-toolbar>

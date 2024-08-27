@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:meta-collectioner": "node dist/meta-collectioner/server/server.mjs",
-    "lint": "ng lint"
+    "lint:fix": "ng lint --fix && prettier --write '**/*.{ts,html,scss,css}'"
   },
   "private": true,
   "dependencies": {
