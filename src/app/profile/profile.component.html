@@ -4,10 +4,7 @@
     alt="avatar" />
 
 <div class="profile_actions">
-    <button
-        mat-raised-button
-        (click)="openAddCollectionDialog()"
-        class="profile_actions__add">
+    <button mat-raised-button (click)="openAddCollectionDialog()" class="profile_actions__add">
         Add collection
     </button>
     <button
@@ -21,9 +18,7 @@
 
 <mat-list class="profile_collections">
     @for (item of collections; track item.id) {
-        <mat-list-item
-            [routerLink]="['collections', item.path]"
-            class="profile_collections__item">
+        <mat-list-item [routerLink]="['collections', item.path]" class="profile_collections__item">
             <span matLine> {{ item.title }} </span>
             <mat-icon
                 (click)="removeCollection(item)"

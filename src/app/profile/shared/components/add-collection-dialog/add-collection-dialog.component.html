@@ -32,23 +32,13 @@
     <mat-dialog-actions align="end">
         <div class="new_collection_error">
             <mat-error
-                *ngIf="
-                    newCollectionForm.dirty &&
-                    newCollectionForm.hasError('bothOrNoneFilled')
-                "
+                *ngIf="newCollectionForm.dirty && newCollectionForm.hasError('bothOrNoneFilled')"
                 >Please, choose one option</mat-error
             >
         </div>
         <div class="action_buttons">
-            <button
-                mat-button
-                type="submit"
-                [disabled]="!newCollectionForm.valid">
-                Add
-            </button>
-            <button mat-button [mat-dialog-close]="false" cdkFocusInitial>
-                Cancel
-            </button>
+            <button mat-button type="submit" [disabled]="!newCollectionForm.valid">Add</button>
+            <button mat-button [mat-dialog-close]="false" cdkFocusInitial>Cancel</button>
         </div>
     </mat-dialog-actions>
 </form>

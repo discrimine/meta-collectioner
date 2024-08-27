@@ -13,18 +13,10 @@ export class MyCollectionsService {
     }
 
     public addCollection(newCollection: Collection): Observable<Collection[]> {
-        const collections: Collection[] = JSON.parse(
-            localStorage.getItem('collections') || '[]'
-        );
+        const collections: Collection[] = JSON.parse(localStorage.getItem('collections') || '[]');
 
-        if (
-            collections.find(
-                collection => collection.title === newCollection.title
-            )
-        ) {
-            return throwError(
-                () => new Error('This collection is already exist')
-            );
+        if (collections.find(collection => collection.title === newCollection.title)) {
+            return throwError(() => new Error('This collection is already exist'));
         } else {
             collections.push(newCollection);
             localStorage.setItem('collections', JSON.stringify(collections));
@@ -34,13 +26,9 @@ export class MyCollectionsService {
     }
 
     public removeCollection(collectionId: string): Observable<Collection[]> {
-        let collections: Collection[] = JSON.parse(
-            localStorage.getItem('collections') || '[]'
-        );
+        let collections: Collection[] = JSON.parse(localStorage.getItem('collections') || '[]');
 
-        collections = collections.filter(
-            collection => collection.id !== collectionId
-        );
+        collections = collections.filter(collection => collection.id !== collectionId);
 
         localStorage.setItem('collections', JSON.stringify(collections));
 

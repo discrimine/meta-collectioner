@@ -30,9 +30,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProfileComponent implements OnInit {
     private readonly dialog = inject(MatDialog);
     private readonly snackBar = inject(MatSnackBar);
-    public collections: Collection[] = [
-        { id: 'settings', title: 'Settings', path: 'settings' },
-    ];
+    public collections: Collection[] = [{ id: 'settings', title: 'Settings', path: 'settings' }];
     public isDeleteMode: boolean = false;
 
     private subscriptions = new Subscription();
@@ -41,11 +39,9 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit(): void {
         this.subscriptions.add(
-            this.myCollectionsService
-                .getCollections()
-                .subscribe((collections: Collection[]) => {
-                    this.collections = collections;
-                })
+            this.myCollectionsService.getCollections().subscribe((collections: Collection[]) => {
+                this.collections = collections;
+            })
         );
     }
 
@@ -82,11 +78,9 @@ export class ProfileComponent implements OnInit {
         });
         dialofRef.afterClosed().subscribe(isDeleteConfirmed => {
             if (isDeleteConfirmed) {
-                this.myCollectionsService
-                    .removeCollection(collection.id)
-                    .subscribe(collections => {
-                        this.collections = collections;
-                    });
+                this.myCollectionsService.removeCollection(collection.id).subscribe(collections => {
+                    this.collections = collections;
+                });
                 this.isDeleteMode = false;
             }
         });

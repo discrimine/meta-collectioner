@@ -1,11 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import {
-    AnimeEntity,
-    AnimeResponse,
-    AnimeResponseEntity,
-} from '../interfaces/anime.interfaces';
+import { AnimeEntity, AnimeResponse, AnimeResponseEntity } from '../interfaces/anime.interfaces';
 
 @Injectable({
     providedIn: 'root',
@@ -13,11 +9,7 @@ import {
 export class AnimeService {
     constructor(private httpClient: HttpClient) {}
 
-    public getList(
-        search = 'dororo',
-        page = '0',
-        perPage = '5'
-    ): Observable<AnimeEntity[]> {
+    public getList(search = 'dororo', page = '0', perPage = '5'): Observable<AnimeEntity[]> {
         const query = `query ($search: String, $page: Int, $perPage: Int) {
       Page (page: $page, perPage: $perPage) {
         media (search: $search) {
