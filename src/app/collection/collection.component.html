@@ -9,18 +9,15 @@
 <div class="collection-container">
     <mat-spinner *ngIf="isLoading" class="collection-container__spinner"></mat-spinner>
     <ng-container *ngIf="!isLoading">
-        <ng-container *ngIf="anime.length > 0; else noAnime">
-            @for (animeEntity of anime; track animeEntity.id) {
-                <mat-card appearance="outlined" class="anime-card">
-                    <mat-card-content>
-                        <img [src]="animeEntity.cover" [alt]="animeEntity.title" />
-                        <span> {{ animeEntity.title }} </span>
-                    </mat-card-content>
-                </mat-card>
-            }
-        </ng-container>
-        <ng-template #noAnime>
-            <p>No added anime yet</p>
-        </ng-template>
+        @for (animeEntity of anime; track animeEntity.id) {
+            <mat-card appearance="outlined" class="anime-card">
+                <mat-card-content>
+                    <img [src]="animeEntity.cover" [alt]="animeEntity.title" />
+                    <span> {{ animeEntity.title }} </span>
+                </mat-card-content>
+            </mat-card>
+        } @empty {
+            No added anime yet
+        }
     </ng-container>
 </div>
