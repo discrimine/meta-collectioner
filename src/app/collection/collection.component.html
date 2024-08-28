@@ -7,14 +7,17 @@
 </div>
 
 <div class="collection-container">
-    @for (animeEntity of anime; track animeEntity.id) {
-        <mat-card appearance="outlined" class="anime-card">
-            <mat-card-content>
-                <img [src]="animeEntity.cover" [alt]="animeEntity.title" />
-                <span> {{ animeEntity.title }} </span>
-            </mat-card-content>
-        </mat-card>
-    } @empty {
-        No added anime yet
-    }
+    <mat-spinner *ngIf="isLoading" class="collection-container__spinner"></mat-spinner>
+    <ng-container *ngIf="!isLoading">
+        @for (animeEntity of anime; track animeEntity.id) {
+            <mat-card appearance="outlined" class="anime-card">
+                <mat-card-content>
+                    <img [src]="animeEntity.cover" [alt]="animeEntity.title" />
+                    <span> {{ animeEntity.title }} </span>
+                </mat-card-content>
+            </mat-card>
+        } @empty {
+            No added anime yet
+        }
+    </ng-container>
 </div>

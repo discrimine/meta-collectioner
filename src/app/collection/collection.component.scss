@@ -27,6 +27,14 @@
     grid-gap: 10px 15px;
     grid-auto-flow: row dense;
     padding: 20px;
+    min-height: 200px;
+    position: relative;
+
+    .collection-container__spinner {
+        grid-column: 1 / -1;
+        justify-self: center;
+        align-self: center;
+    }
 }
 
 .anime-card {
