@@ -1,0 +1,11 @@
+{
+    "*.ts": [
+        "npm run lint:fix"
+    ],
+    "*.html": [
+        "npm run lint:fix"
+    ],
+    "*.scss": [
+        "npm run lint:fix"
+    ]
+}
