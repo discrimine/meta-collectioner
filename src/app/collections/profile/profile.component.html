@@ -18,7 +18,7 @@
 
 <mat-list class="profile_collections">
     @for (item of collections; track item.id) {
-        <mat-list-item [routerLink]="['./', item.path]" class="profile_collections__item">
+        <mat-list-item [routerLink]="['./', item.id]" class="profile_collections__item">
             <span matLine> {{ item.title }} </span>
             <mat-icon
                 (click)="removeCollection(item)"

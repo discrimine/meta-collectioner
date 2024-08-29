@@ -9,8 +9,9 @@
 </div>
 
 <div class="collection-container">
-    <mat-spinner *ngIf="isLoading" class="collection-container__spinner"></mat-spinner>
-    <ng-container *ngIf="!isLoading">
+    @if (isLoading) {
+        <mat-spinner class="collection-container__spinner"></mat-spinner>
+    } @else {
         @for (animeEntity of anime; track animeEntity.id) {
             <mat-card appearance="outlined" class="anime-card">
                 <mat-card-content>
@@ -21,5 +22,5 @@
         } @empty {
             No added anime yet
         }
-    </ng-container>
+    }
 </div>

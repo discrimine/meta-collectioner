@@ -1,1 +1,11 @@
-<p>add-collection-elements-dialog works!</p>
+<h2 mat-dialog-title>Add elements to your {{ data.collectionName }} collection</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input matInput />
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button mat-dialog-close cdkFocusInitial>Add</button>
+</mat-dialog-actions>

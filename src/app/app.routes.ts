@@ -14,7 +14,7 @@ export const routes: Routes = [
         component: CollectionsComponent,
         children: [
             {
-                path: ':collection',
+                path: ':collectionId',
                 component: CollectionComponent,
             },
         ],

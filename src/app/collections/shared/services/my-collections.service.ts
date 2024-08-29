@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { Collection } from '../interfaces/collections.interfaces';
 
 @Injectable({
@@ -8,8 +8,30 @@ import { Collection } from '../interfaces/collections.interfaces';
 export class MyCollectionsService {
     constructor() {}
 
+    private collections: BehaviorSubject<Collection[]> = new BehaviorSubject<Collection[]>([]);
+
+    // DATA METHODS
+
+    public getCollectionById(id: string): Observable<Collection> {
+        return this.collections.pipe(
+            map(collections => {
+                const collection = collections.find(collection => collection.id === id);
+                if (!collection) {
+                    throw new Error('Collection not found');
+                }
+
+                return collection;
+            }),
+            catchError(err => throwError(() => err))
+        );
+    }
+
+    // API METHODS
+
     public getCollections(): Observable<Collection[]> {
-        return of(JSON.parse(localStorage.getItem('collections') || '[]'));
+        return of(JSON.parse(localStorage.getItem('collections') || '[]')).pipe(
+            tap(collections => this.collections.next(collections))
+        );
     }
 
     public addCollection(newCollection: Collection): Observable<Collection[]> {
@@ -21,7 +43,7 @@ export class MyCollectionsService {
             collections.push(newCollection);
             localStorage.setItem('collections', JSON.stringify(collections));
 
-            return of(collections);
+            return of(collections).pipe(tap(collections => this.collections.next(collections)));
         }
     }
 
@@ -32,6 +54,6 @@ export class MyCollectionsService {
 
         localStorage.setItem('collections', JSON.stringify(collections));
 
-        return of(collections);
+        return of(collections).pipe(tap(collections => this.collections.next(collections)));
     }
 }
