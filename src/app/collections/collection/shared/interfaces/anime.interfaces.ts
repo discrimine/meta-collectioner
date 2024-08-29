@@ -11,9 +11,3 @@ export interface AnimeResponse {
         };
     };
 }
-
-export interface AnimeEntity {
-    id: number;
-    cover: string;
-    title: string;
-}

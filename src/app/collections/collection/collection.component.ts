@@ -1,8 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { AnimeService } from './shared/services/anime.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { AnimeEntity } from './shared/interfaces/anime.interfaces';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { Subscription, switchMap } from 'rxjs';
@@ -13,6 +11,7 @@ import { AddCollectionElementsDialogComponent } from './shared/components/add-co
 import { MyCollectionsService } from '../shared/services/my-collections.service';
 import { Collection } from '../shared/interfaces/collections.interfaces';
 import { ActivatedRoute } from '@angular/router';
+import { CollectionElement } from './shared/interfaces/collection-elements.interfaces';
 
 @Component({
     selector: 'app-collection',
@@ -29,7 +28,7 @@ import { ActivatedRoute } from '@angular/router';
     styleUrl: './collection.component.scss',
 })
 export class CollectionComponent implements OnInit, OnDestroy {
-    public anime: AnimeEntity[] = [];
+    public anime: CollectionElement[] = [];
     public isLoading: boolean = true;
 
     private readonly dialog = inject(MatDialog);
@@ -38,7 +37,6 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
     constructor(
         private myCollectionsService: MyCollectionsService,
-        private animeService: AnimeService,
         private router: ActivatedRoute
     ) {}
 
@@ -54,18 +52,13 @@ export class CollectionComponent implements OnInit, OnDestroy {
                     this.collection = collection;
                 })
         );
-
-        this.subscriptions.add(
-            this.animeService.getList().subscribe((anime: AnimeEntity[]) => {
-                this.anime = anime;
-                this.isLoading = false;
-            })
-        );
     }
 
     public openAddCollectionElementsDialog(): void {
         this.dialog.open(AddCollectionElementsDialogComponent, {
             data: { collectionName: this.collection.title },
+            width: '80vw',
+            height: '80vh',
         });
     }
 

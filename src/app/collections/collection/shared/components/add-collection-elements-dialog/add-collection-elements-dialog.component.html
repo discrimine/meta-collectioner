@@ -1,9 +1,28 @@
-<h2 mat-dialog-title>Add elements to your {{ data.collectionName }} collection</h2>
-<mat-dialog-content class="mat-typography">
-    <mat-form-field>
+<h2 class="collection_title" mat-dialog-title>
+    Add elements to your {{ data.collectionName }} collection
+</h2>
+<mat-dialog-content>
+    <mat-form-field class="collection_search">
         <mat-label>Search</mat-label>
-        <input matInput />
+        <input [formControl]="searchInput" matInput />
     </mat-form-field>
+
+    <div class="collection_container">
+        @if (isLoading) {
+            <mat-spinner class="collection_container__spinner"></mat-spinner>
+        } @else {
+            @for (animeEntity of foundElements; track animeEntity.id) {
+                <mat-card appearance="outlined" class="collection_card">
+                    <mat-card-content>
+                        <img [src]="animeEntity.cover" [alt]="animeEntity.title" />
+                        <span> {{ animeEntity.title }} </span>
+                    </mat-card-content>
+                </mat-card>
+            } @empty {
+                No added anime yet
+            }
+        }
+    </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>

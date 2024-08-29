@@ -1,28 +1,29 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { AnimeEntity, AnimeResponse, AnimeResponseEntity } from '../interfaces/anime.interfaces';
-
+import { AnimeResponse, AnimeResponseEntity } from '../interfaces/anime.interfaces';
+import { CollectionElement } from '../interfaces/collection-elements.interfaces';
 @Injectable({
     providedIn: 'root',
 })
 export class AnimeService {
     constructor(private httpClient: HttpClient) {}
 
-    public getList(search = 'dororo', page = '0', perPage = '5'): Observable<AnimeEntity[]> {
-        const query = `query ($search: String, $page: Int, $perPage: Int) {
-      Page (page: $page, perPage: $perPage) {
-        media (search: $search) {
-          id
-          title {
-            english
-          }
-          coverImage {
-            large
-          }
-        }
-      }
-    }`;
+    public getList(search = 'dororo', page = '0', perPage = '5'): Observable<CollectionElement[]> {
+        const query = `
+        query ($search: String, $page: Int, $perPage: Int) {
+            Page (page: $page, perPage: $perPage) {
+                media (search: $search) {
+                id
+                title {
+                    english
+                }
+                coverImage {
+                    large
+                }
+                }
+            }
+        }`;
 
         const variables = {
             search: search,
