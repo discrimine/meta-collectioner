@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { Collection } from '../interfaces/profile.interfaces';
+import { Collection } from '../interfaces/collections.interfaces';
 
 @Injectable({
     providedIn: 'root',

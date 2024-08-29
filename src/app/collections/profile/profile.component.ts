@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-import { Collection } from './shared/interfaces/profile.interfaces';
+import { Collection } from '../shared/interfaces/collections.interfaces';
 import { RouterModule } from '@angular/router';
-import { MyCollectionsService } from './shared/services/my-collections.service';
+import { MyCollectionsService } from '../shared/services/my-collections.service';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCollectionDialogComponent } from './shared/components/add-collection-dialog/add-collection-dialog.component';
