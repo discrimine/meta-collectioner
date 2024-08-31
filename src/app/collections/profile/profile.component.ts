@@ -2,9 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { Collection } from '../shared/interfaces/collections.interfaces';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MyCollectionsService } from '../shared/services/my-collections.service';
-import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCollectionDialogComponent } from './shared/components/add-collection-dialog/add-collection-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,16 +32,15 @@ export class ProfileComponent implements OnInit {
     public collections: Collection[] = [{ id: 'settings', title: 'Settings', path: 'settings' }];
     public isDeleteMode: boolean = false;
 
-    private subscriptions = new Subscription();
-
-    constructor(private myCollectionsService: MyCollectionsService) {}
+    constructor(
+        private myCollectionsService: MyCollectionsService,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
-        this.subscriptions.add(
-            this.myCollectionsService.getCollections().subscribe((collections: Collection[]) => {
-                this.collections = collections;
-            })
-        );
+        this.myCollectionsService.collections.subscribe(collections => {
+            this.collections = collections;
+        });
     }
 
     public openAddCollectionDialog(): void {
@@ -55,6 +53,7 @@ export class ProfileComponent implements OnInit {
                 this.myCollectionsService.addCollection(collection).subscribe({
                     next: collections => {
                         this.collections = collections;
+                        this.router.navigate(['collections', collection.id]);
                     },
                     error: error => {
                         this.snackBar.open(error, 'close', {

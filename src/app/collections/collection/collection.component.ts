@@ -10,8 +10,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddCollectionElementsDialogComponent } from './shared/components/add-collection-elements-dialog/add-collection-elements-dialog.component';
 import { MyCollectionsService } from '../shared/services/my-collections.service';
 import { Collection } from '../shared/interfaces/collections.interfaces';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CollectionElement } from './shared/interfaces/collection-elements.interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-collection',
@@ -29,28 +30,57 @@ import { CollectionElement } from './shared/interfaces/collection-elements.inter
 })
 export class CollectionComponent implements OnInit, OnDestroy {
     public anime: CollectionElement[] = [];
-    public isLoading: boolean = true;
+    public isLoading: boolean = false;
+    public collection!: Collection;
 
     private readonly dialog = inject(MatDialog);
+    private readonly snackBar = inject(MatSnackBar);
     private subscriptions = new Subscription();
-    private collection!: Collection;
 
     constructor(
         private myCollectionsService: MyCollectionsService,
-        private router: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
         this.subscriptions.add(
-            this.router.params
+            this.activatedRoute.params
                 .pipe(
                     switchMap(params => {
                         return this.myCollectionsService.getCollectionById(params['collectionId']);
                     })
                 )
-                .subscribe(collection => {
-                    this.collection = collection;
+                .subscribe({
+                    next: collection => {
+                        this.collection = collection;
+                    },
+                    error: error => {
+                        this.snackBar.open(error, 'close', {
+                            duration: 5000,
+                            horizontalPosition: 'center',
+                            verticalPosition: 'top',
+                            panelClass: ['error-snackbar'],
+                        });
+                    },
                 })
+        );
+
+        this.subscriptions.add(
+            this.myCollectionsService.collections.subscribe(collections => {
+                if (
+                    !collections.find(
+                        collection =>
+                            collection.id === this.activatedRoute.snapshot.params['collectionId']
+                    )
+                ) {
+                    if (collections.length) {
+                        this.router.navigate(['collections', collections[0].id]);
+                    } else {
+                        this.router.navigate(['collections']);
+                    }
+                }
+            })
         );
     }
 

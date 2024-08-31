@@ -50,13 +50,7 @@ export class AnimeService {
                     const anime = response?.data?.Page?.media || [];
 
                     return anime
-                        .filter(
-                            (animeEntity: AnimeResponseEntity) =>
-                                animeEntity?.title?.english &&
-                                animeEntity.title.english
-                                    .toLowerCase()
-                                    .includes(search.toLowerCase())
-                        )
+                        .filter((animeEntity: AnimeResponseEntity) => animeEntity?.title?.english)
                         .map((animeEntity: AnimeResponseEntity) => ({
                             id: animeEntity.id,
                             title: animeEntity.title.english,

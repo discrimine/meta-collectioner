@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, of, tap, throwError } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, tap, throwError } from 'rxjs';
 import { Collection } from '../interfaces/collections.interfaces';
 
 @Injectable({
@@ -8,21 +8,18 @@ import { Collection } from '../interfaces/collections.interfaces';
 export class MyCollectionsService {
     constructor() {}
 
-    private collections: BehaviorSubject<Collection[]> = new BehaviorSubject<Collection[]>([]);
+    public collections: BehaviorSubject<Collection[]> = new BehaviorSubject<Collection[]>([]);
 
     // DATA METHODS
 
     public getCollectionById(id: string): Observable<Collection> {
         return this.collections.pipe(
             map(collections => {
-                const collection = collections.find(collection => collection.id === id);
-                if (!collection) {
-                    throw new Error('Collection not found');
-                }
+                const collection =
+                    collections.find(collection => collection.id === id) || collections[0];
 
                 return collection;
-            }),
-            catchError(err => throwError(() => err))
+            })
         );
     }
 
@@ -30,7 +27,9 @@ export class MyCollectionsService {
 
     public getCollections(): Observable<Collection[]> {
         return of(JSON.parse(localStorage.getItem('collections') || '[]')).pipe(
-            tap(collections => this.collections.next(collections))
+            tap(collections => {
+                this.collections.next(collections);
+            })
         );
     }
 
