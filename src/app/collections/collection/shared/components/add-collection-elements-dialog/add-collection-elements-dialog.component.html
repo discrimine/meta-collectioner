@@ -11,11 +11,15 @@
         @if (isLoading) {
             <mat-spinner class="collection_container__spinner"></mat-spinner>
         } @else {
-            @for (animeEntity of foundElements; track animeEntity.id) {
-                <mat-card appearance="outlined" class="collection_card">
+            @for (element of foundElements; track element.id) {
+                <mat-card
+                    (click)="addRemoveElement(element)"
+                    appearance="outlined"
+                    class="collection_card"
+                    [ngClass]="{ added: element | isElementAdded: elementsToAdd }">
                     <mat-card-content>
-                        <img [src]="animeEntity.cover" [alt]="animeEntity.title" />
-                        <span> {{ animeEntity.title }} </span>
+                        <img [src]="element.cover" [alt]="element.title" />
+                        <span> {{ element.title }} </span>
                     </mat-card-content>
                 </mat-card>
             } @empty {
@@ -26,5 +30,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button mat-dialog-close cdkFocusInitial>Add</button>
+    <button mat-button mat-dialog-close cdkFocusInitial (click)="saveElementsInCollection()">
+        Add
+    </button>
 </mat-dialog-actions>

@@ -1,5 +1,5 @@
 export interface CollectionElement {
-    id: number;
+    id: string;
     cover: string;
     title: string;
 }

@@ -85,10 +85,15 @@ export class CollectionComponent implements OnInit, OnDestroy {
     }
 
     public openAddCollectionElementsDialog(): void {
-        this.dialog.open(AddCollectionElementsDialogComponent, {
+        const dialofRef = this.dialog.open(AddCollectionElementsDialogComponent, {
             data: { collectionName: this.collection.title },
             width: '80vw',
             height: '80vh',
+        });
+
+        dialofRef.afterClosed().subscribe((elementsToAdd: CollectionElement) => {
+            // TODO
+            console.log(elementsToAdd);
         });
     }
 

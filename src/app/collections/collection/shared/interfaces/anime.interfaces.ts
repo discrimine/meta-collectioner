@@ -1,5 +1,5 @@
 export interface AnimeResponseEntity {
-    id: number;
+    id: string;
     title: { english: string };
     coverImage: { large: string };
 }

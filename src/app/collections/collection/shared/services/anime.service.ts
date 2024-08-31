@@ -14,13 +14,13 @@ export class AnimeService {
         query ($search: String, $page: Int, $perPage: Int) {
             Page (page: $page, perPage: $perPage) {
                 media (search: $search) {
-                id
-                title {
-                    english
-                }
-                coverImage {
-                    large
-                }
+                    id
+                    title {
+                        english
+                    }
+                    coverImage {
+                        large
+                    }
                 }
             }
         }`;
