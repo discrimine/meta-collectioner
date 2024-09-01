@@ -11,8 +11,9 @@ import { AddCollectionElementsDialogComponent } from './shared/components/add-co
 import { MyCollectionsService } from '../shared/services/my-collections.service';
 import { Collection } from '../shared/interfaces/collections.interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CollectionElement } from './shared/interfaces/collection-elements.interfaces';
+import { CollectionElement } from '../shared/interfaces/collection-elements.interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CollectionElementsService } from './shared/services/collection-elements.service';
 
 @Component({
     selector: 'app-collection',
@@ -29,7 +30,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     styleUrl: './collection.component.scss',
 })
 export class CollectionComponent implements OnInit, OnDestroy {
-    public anime: CollectionElement[] = [];
     public isLoading: boolean = false;
     public collection!: Collection;
 
@@ -39,6 +39,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
     constructor(
         private myCollectionsService: MyCollectionsService,
+        private collectionElementsService: CollectionElementsService,
         private activatedRoute: ActivatedRoute,
         private router: Router
     ) {}
@@ -91,9 +92,12 @@ export class CollectionComponent implements OnInit, OnDestroy {
             height: '80vh',
         });
 
-        dialofRef.afterClosed().subscribe((elementsToAdd: CollectionElement) => {
-            // TODO
-            console.log(elementsToAdd);
+        dialofRef.afterClosed().subscribe((elementsToAdd: CollectionElement[]) => {
+            this.collectionElementsService
+                .addCollectionElements(elementsToAdd, this.collection.id)
+                .subscribe(collections => {
+                    this.myCollectionsService.collections.next(collections);
+                });
         });
     }
 

@@ -7,7 +7,7 @@ import { debounceTime, Subscription, switchMap } from 'rxjs';
 import { AnimeService } from '../../services/anime.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
-import { CollectionElement } from '../../interfaces/collection-elements.interfaces';
+import { CollectionElement } from '../../../../shared/interfaces/collection-elements.interfaces';
 import { CommonModule } from '@angular/common';
 import { IsElementAddedPipe } from '../../pipes/is-element-added.pipe';
 

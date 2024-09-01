@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { AnimeResponse, AnimeResponseEntity } from '../interfaces/anime.interfaces';
-import { CollectionElement } from '../interfaces/collection-elements.interfaces';
+import { CollectionElement } from '../../../shared/interfaces/collection-elements.interfaces';
 @Injectable({
     providedIn: 'root',
 })

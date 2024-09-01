@@ -2,8 +2,13 @@
     text-align: center;
 }
 
-.collection_search {
+mat-dialog-content {
     width: 100%;
+    text-align: center;
+}
+
+.collection_search {
+    width: 400px;
 }
 
 .collection_container {
@@ -14,11 +19,17 @@
     padding: 20px;
     min-height: 180px;
     position: relative;
+    text-align: center;
 
     .collection_container__spinner {
         grid-column: 1 / -1;
         justify-self: center;
         align-self: center;
+    }
+
+    .collection_emty {
+        text-align: center;
+        grid-column: 1 / -1;
     }
 }
 

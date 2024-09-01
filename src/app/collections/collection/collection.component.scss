@@ -1,14 +1,14 @@
-.collection-tools {
+.collection_tools {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-right: 20px;
 
-    .collection-tools__search {
+    .collection_tools__search {
         flex: 1;
     }
 
-    .collection-tools__icon {
+    .collection_tools__icon {
         height: 36px;
         width: 36px;
         font-size: 36px;

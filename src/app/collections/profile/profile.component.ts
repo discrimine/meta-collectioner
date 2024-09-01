@@ -29,7 +29,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProfileComponent implements OnInit {
     private readonly dialog = inject(MatDialog);
     private readonly snackBar = inject(MatSnackBar);
-    public collections: Collection[] = [{ id: 'settings', title: 'Settings', path: 'settings' }];
+    public collections: Collection[] = [];
     public isDeleteMode: boolean = false;
 
     constructor(

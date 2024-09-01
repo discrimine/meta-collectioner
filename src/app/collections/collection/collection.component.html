@@ -1,22 +1,23 @@
-<div class="collection-tools">
-    <mat-form-field class="collection-tools__search">
+<div class="collection_tools">
+    <mat-form-field class="collection_tools__search">
         <input matInput placeholder="Search" value="" />
     </mat-form-field>
-    <mat-icon class="collection-tools__icon">sort</mat-icon>
-    <mat-icon (click)="openAddCollectionElementsDialog()" class="collection-tools__icon"
+    <mat-icon class="collection_tools__icon">sort</mat-icon>
+    <mat-icon (click)="openAddCollectionElementsDialog()" class="collection_tools__icon"
         >add_circle</mat-icon
     >
+    <mat-icon class="collection_tools__icon">delete_forever</mat-icon>
 </div>
 
 <div class="collection-container">
     @if (isLoading) {
         <mat-spinner class="collection-container__spinner"></mat-spinner>
     } @else {
-        @for (animeEntity of anime; track animeEntity.id) {
+        @for (element of collection.elements; track element.id) {
             <mat-card appearance="outlined" class="anime-card">
                 <mat-card-content>
-                    <img [src]="animeEntity.cover" [alt]="animeEntity.title" />
-                    <span> {{ animeEntity.title }} </span>
+                    <img [src]="element.cover" [alt]="element.title" />
+                    <span> {{ element.title }} </span>
                 </mat-card-content>
             </mat-card>
         } @empty {
