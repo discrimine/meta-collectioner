@@ -6,22 +6,32 @@
     <mat-icon (click)="openAddCollectionElementsDialog()" class="collection_tools__icon"
         >add_circle</mat-icon
     >
-    <mat-icon class="collection_tools__icon">delete_forever</mat-icon>
+    <mat-icon (click)="openDeleteCollectionDialog()" class="collection_tools__icon"
+        >delete_forever</mat-icon
+    >
 </div>
 
-<div class="collection-container">
+<div class="collection_container">
     @if (isLoading) {
-        <mat-spinner class="collection-container__spinner"></mat-spinner>
+        <mat-spinner class="collection__spinner"></mat-spinner>
     } @else {
         @for (element of collection.elements; track element.id) {
-            <mat-card appearance="outlined" class="anime-card">
+            <mat-card appearance="outlined" class="collection__anime_card">
                 <mat-card-content>
+                    <div class="collection_mask">
+                        <mat-icon
+                            color="warn"
+                            (click)="openDeleteCollectionElementDialog(element)"
+                            class="collection_mask__delete"
+                            >delete</mat-icon
+                        >
+                    </div>
                     <img [src]="element.cover" [alt]="element.title" />
                     <span> {{ element.title }} </span>
                 </mat-card-content>
             </mat-card>
         } @empty {
-            No added {{ collection.title }} yet
+            <div class="collection_emty">No added {{ collection.title }} elements yet</div>
         }
     }
 </div>

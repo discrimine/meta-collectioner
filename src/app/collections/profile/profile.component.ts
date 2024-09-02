@@ -1,16 +1,17 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { Collection } from '../shared/interfaces/collections.interfaces';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { MyCollectionsService } from '../shared/services/my-collections.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCollectionDialogComponent } from './shared/components/add-collection-dialog/add-collection-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { RemoveCollectionDialogComponent } from './shared/components/remove-collection-dialog/remove-collection-dialog.component';
+import { DeleteDialogComponent } from '../shared/components/delete-dialog/delete-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { filter, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-profile',
@@ -26,21 +27,36 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.scss',
 })
-export class ProfileComponent implements OnInit {
-    private readonly dialog = inject(MatDialog);
-    private readonly snackBar = inject(MatSnackBar);
+export class ProfileComponent implements OnInit, OnDestroy {
     public collections: Collection[] = [];
     public isDeleteMode: boolean = false;
+    public currentlyOpenedCollection: string = '';
+
+    private readonly dialog = inject(MatDialog);
+    private readonly snackBar = inject(MatSnackBar);
+    private subscriptions = new Subscription();
 
     constructor(
         private myCollectionsService: MyCollectionsService,
-        private router: Router
+        private router: Router,
+        private activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
-        this.myCollectionsService.collections.subscribe(collections => {
-            this.collections = collections;
-        });
+        this.subscriptions.add(
+            this.myCollectionsService.collections.subscribe(collections => {
+                this.collections = collections;
+            })
+        );
+
+        this.subscriptions.add(
+            this.router.events
+                .pipe(filter(event => event instanceof NavigationEnd))
+                .subscribe(() => {
+                    this.currentlyOpenedCollection =
+                        this.activatedRoute.firstChild?.snapshot.params['collectionId'];
+                })
+        );
     }
 
     public openAddCollectionDialog(): void {
@@ -69,10 +85,10 @@ export class ProfileComponent implements OnInit {
     }
 
     public removeCollection(collection: Collection): void {
-        const dialofRef = this.dialog.open(RemoveCollectionDialogComponent, {
+        const dialofRef = this.dialog.open(DeleteDialogComponent, {
             width: '300px',
             data: {
-                collectionName: collection.title,
+                message: `Are you sure you want to delete collection ${collection.title}?`,
             },
         });
         dialofRef.afterClosed().subscribe(isDeleteConfirmed => {
@@ -80,8 +96,11 @@ export class ProfileComponent implements OnInit {
                 this.myCollectionsService.removeCollection(collection.id).subscribe(collections => {
                     this.collections = collections;
                 });
-                this.isDeleteMode = false;
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
     }
 }

@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CollectionElement } from '../shared/interfaces/collection-elements.interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CollectionElementsService } from './shared/services/collection-elements.service';
+import { DeleteDialogComponent } from '../shared/components/delete-dialog/delete-dialog.component';
 
 @Component({
     selector: 'app-collection',
@@ -98,6 +99,42 @@ export class CollectionComponent implements OnInit, OnDestroy {
                 .subscribe(collections => {
                     this.myCollectionsService.collections.next(collections);
                 });
+        });
+    }
+
+    public openDeleteCollectionDialog(): void {
+        const dialofRef = this.dialog.open(DeleteDialogComponent, {
+            width: '300px',
+            data: {
+                message: `Are you sure you want to delete collection ${this.collection.title}?`,
+            },
+        });
+        dialofRef.afterClosed().subscribe(isDeleteConfirmed => {
+            if (isDeleteConfirmed) {
+                this.myCollectionsService
+                    .removeCollection(this.collection.id)
+                    .subscribe(collections => {
+                        this.myCollectionsService.collections.next(collections);
+                    });
+            }
+        });
+    }
+
+    public openDeleteCollectionElementDialog(element: CollectionElement): void {
+        const dialofRef = this.dialog.open(DeleteDialogComponent, {
+            width: '300px',
+            data: {
+                message: `Are you sure you want to delete ${element.title} from the ${this.collection.title} collection?`,
+            },
+        });
+        dialofRef.afterClosed().subscribe(isDeleteConfirmed => {
+            if (isDeleteConfirmed) {
+                this.collectionElementsService
+                    .deleteCollectionElement(this.collection.id, element.id)
+                    .subscribe(collections => {
+                        this.myCollectionsService.collections.next(collections);
+                    });
+            }
         });
     }
 

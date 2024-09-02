@@ -21,7 +21,7 @@
     }
 }
 
-.collection-container {
+.collection_container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(166px, 1fr));
     grid-gap: 10px 15px;
@@ -30,17 +30,44 @@
     min-height: 200px;
     position: relative;
 
-    .collection-container__spinner {
+    .collection__spinner {
         grid-column: 1 / -1;
         justify-self: center;
         align-self: center;
     }
+
+    .collection_emty {
+        text-align: center;
+        grid-column: 1 / -1;
+    }
 }
 
-.anime-card {
+.collection__anime_card {
     background-color: #81a2e6;
     border-radius: 10px;
     border: none;
+
+    .collection_mask {
+        visibility: hidden;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        background-color: rgba(#000, 0.2);
+
+        .collection_mask__delete {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+    }
+
+    &:hover {
+        .collection_mask {
+            visibility: visible;
+        }
+    }
 
     img {
         width: 100%;
