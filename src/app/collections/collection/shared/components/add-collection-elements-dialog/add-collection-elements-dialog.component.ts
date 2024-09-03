@@ -4,12 +4,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime, Subscription, switchMap } from 'rxjs';
-import { AnimeService } from '../../services/anime.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { CollectionElement } from '../../../../shared/interfaces/collection-elements.interfaces';
 import { CommonModule } from '@angular/common';
 import { IsElementAddedPipe } from '../../pipes/is-element-added.pipe';
+import { CollectionAdapterService } from '../../services/collection-adapter.service';
+import { CollectionType } from '../../interfaces/collection.interfaces';
 
 @Component({
     selector: 'app-add-collection-elements-dialog',
@@ -37,8 +38,9 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription = new Subscription();
 
     constructor(
-        @Inject(MAT_DIALOG_DATA) public data: { collectionName: string },
-        private animeService: AnimeService,
+        @Inject(MAT_DIALOG_DATA)
+        public data: { collectionName: string; collectionType: CollectionType },
+        private collectionAdapterService: CollectionAdapterService,
         private isElementAdded: IsElementAddedPipe,
         private matDialogRef: MatDialogRef<AddCollectionElementsDialogComponent>
     ) {}
@@ -50,7 +52,10 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
                     debounceTime(500),
                     switchMap(searchTerm => {
                         this.isLoading = true;
-                        return this.animeService.getList(searchTerm);
+                        return this.collectionAdapterService.getList(
+                            this.data.collectionType,
+                            searchTerm
+                        );
                     })
                 )
                 .subscribe(value => {

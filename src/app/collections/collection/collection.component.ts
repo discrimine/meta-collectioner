@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { Subscription, switchMap } from 'rxjs';
+import { filter, Subscription, switchMap } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog } from '@angular/material/dialog';
@@ -88,18 +88,30 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
     public openAddCollectionElementsDialog(): void {
         const dialofRef = this.dialog.open(AddCollectionElementsDialogComponent, {
-            data: { collectionName: this.collection.title },
+            data: { collectionName: this.collection.title, collectionType: this.collection.id },
             width: '80vw',
             height: '80vh',
         });
 
-        dialofRef.afterClosed().subscribe((elementsToAdd: CollectionElement[]) => {
-            this.collectionElementsService
-                .addCollectionElements(elementsToAdd, this.collection.id)
-                .subscribe(collections => {
+        this.subscriptions.add(
+            dialofRef
+                .afterClosed()
+                .pipe(
+                    filter(
+                        (elementsToAdd: CollectionElement[]) =>
+                            Array.isArray(elementsToAdd) && !!elementsToAdd.length
+                    ),
+                    switchMap((elementsToAdd: CollectionElement[]) =>
+                        this.collectionElementsService.addCollectionElements(
+                            elementsToAdd,
+                            this.collection.id
+                        )
+                    )
+                )
+                .subscribe((collections: Collection[]) => {
                     this.myCollectionsService.collections.next(collections);
-                });
-        });
+                })
+        );
     }
 
     public openDeleteCollectionDialog(): void {
@@ -109,15 +121,18 @@ export class CollectionComponent implements OnInit, OnDestroy {
                 message: `Are you sure you want to delete collection ${this.collection.title}?`,
             },
         });
-        dialofRef.afterClosed().subscribe(isDeleteConfirmed => {
-            if (isDeleteConfirmed) {
-                this.myCollectionsService
-                    .removeCollection(this.collection.id)
-                    .subscribe(collections => {
-                        this.myCollectionsService.collections.next(collections);
-                    });
-            }
-        });
+
+        this.subscriptions.add(
+            dialofRef
+                .afterClosed()
+                .pipe(
+                    filter(isDeleteConfirmed => !!isDeleteConfirmed),
+                    switchMap(() => this.myCollectionsService.removeCollection(this.collection.id))
+                )
+                .subscribe(collections => {
+                    this.myCollectionsService.collections.next(collections);
+                })
+        );
     }
 
     public openDeleteCollectionElementDialog(element: CollectionElement): void {
@@ -127,15 +142,23 @@ export class CollectionComponent implements OnInit, OnDestroy {
                 message: `Are you sure you want to delete ${element.title} from the ${this.collection.title} collection?`,
             },
         });
-        dialofRef.afterClosed().subscribe(isDeleteConfirmed => {
-            if (isDeleteConfirmed) {
-                this.collectionElementsService
-                    .deleteCollectionElement(this.collection.id, element.id)
-                    .subscribe(collections => {
-                        this.myCollectionsService.collections.next(collections);
-                    });
-            }
-        });
+
+        this.subscriptions.add(
+            dialofRef
+                .afterClosed()
+                .pipe(
+                    filter(isDeleteConfirmed => !!isDeleteConfirmed),
+                    switchMap(() =>
+                        this.collectionElementsService.deleteCollectionElement(
+                            this.collection.id,
+                            element.id
+                        )
+                    )
+                )
+                .subscribe(collections => {
+                    this.myCollectionsService.collections.next(collections);
+                })
+        );
     }
 
     ngOnDestroy(): void {

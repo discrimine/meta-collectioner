@@ -9,7 +9,7 @@ import { CollectionElement } from '../../../shared/interfaces/collection-element
 export class AnimeService {
     constructor(private httpClient: HttpClient) {}
 
-    public getList(search = 'dororo', page = '0', perPage = '5'): Observable<CollectionElement[]> {
+    public getList(search = '', page = '0', perPage = '5'): Observable<CollectionElement[]> {
         const query = `
         query ($search: String, $page: Int, $perPage: Int) {
             Page (page: $page, perPage: $perPage) {
@@ -48,7 +48,6 @@ export class AnimeService {
             .pipe(
                 map((response: AnimeResponse) => {
                     const anime = response?.data?.Page?.media || [];
-
                     return anime
                         .filter((animeEntity: AnimeResponseEntity) => animeEntity?.title?.english)
                         .map((animeEntity: AnimeResponseEntity) => ({

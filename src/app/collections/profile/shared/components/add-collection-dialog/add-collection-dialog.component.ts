@@ -68,10 +68,13 @@ export class AddCollectionDialogComponent {
             this.newCollectionForm.get('select')?.value ||
             this.newCollectionForm.get('input')?.value;
 
+        const newCollectionId = this.newCollectionForm.get('select')?.value
+            ? this.newCollectionForm.get('select')?.value.toLowerCase().replace(' ', '')
+            : Date.now().toString(36) + Math.random().toString(36).slice(2, 11);
+
         this.dialogRef.close({
-            id: Date.now().toString(36) + Math.random().toString(36).slice(2, 11),
+            id: newCollectionId,
             title: newCollectionName,
-            path: newCollectionName.replace(' ', '').toLowerCase(),
         });
     }
 }
