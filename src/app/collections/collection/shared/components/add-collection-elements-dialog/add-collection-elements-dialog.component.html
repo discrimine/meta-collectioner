@@ -23,7 +23,9 @@
                     </mat-card-content>
                 </mat-card>
             } @empty {
-                <div class="collection_emty">No added anime yet</div>
+                <div class="collection_emty">
+                    No added {{ data.collectionName | lowercase }} yet
+                </div>
             }
         }
     </div>

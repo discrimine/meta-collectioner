@@ -1,3 +1,5 @@
+@use 'theme' as *;
+
 :host {
     display: flex;
     align-items: center;
@@ -26,6 +28,10 @@
         background-color: #befaff;
         border-radius: 5px;
         margin-top: 10px;
+
+        &.mat_active {
+            background: $primary-color;
+        }
 
         &:hover {
             cursor: pointer;

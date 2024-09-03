@@ -16,9 +16,13 @@
     </button>
 </div>
 
-<mat-list class="profile_collections">
+<mat-nav-list class="profile_collections">
     @for (item of collections; track item.id) {
-        <mat-list-item [routerLink]="['./', item.id]" class="profile_collections__item">
+        <mat-list-item
+            [activated]="item.id === currentlyOpenedCollection"
+            [routerLink]="['./', item.id]"
+            routerLinkActive="mat_active"
+            class="profile_collections__item">
             <span matLine> {{ item.title }} </span>
             <mat-icon
                 (click)="removeCollection(item)"
@@ -33,4 +37,5 @@
     } @empty {
         <div class="profile_collections__empty">No added collections yet</div>
     }
-</mat-list>
+    <mat-list-item class="profile_collections__item">import collection</mat-list-item>
+</mat-nav-list>
