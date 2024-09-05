@@ -1,0 +1,60 @@
+<div class="register_container">
+    <div class="register_container__name">Registration</div>
+    <form #registrationForm="ngForm">
+        <p>
+            <mat-form-field appearance="fill">
+                <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="signUpObj.login"
+                    name="username"
+                    #username="ngModel"
+                    placeholder="Username"
+                    required />
+                <mat-error *ngIf="username.invalid && username.touched"
+                    >Username is required</mat-error
+                >
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="fill">
+                <input
+                    matInput
+                    type="email"
+                    [(ngModel)]="signUpObj.email"
+                    name="email"
+                    #email="ngModel"
+                    placeholder="E-mail"
+                    required
+                    email />
+                <mat-error *ngIf="email.invalid && email.touched">
+                    Valid email is required
+                </mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="fill">
+                <input
+                    matInput
+                    type="password"
+                    [(ngModel)]="signUpObj.password"
+                    name="password"
+                    #password="ngModel"
+                    placeholder="Password"
+                    required />
+                <mat-error *ngIf="password.invalid && password.touched">
+                    Password is required
+                </mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <button
+                mat-raised-button
+                color="primary"
+                [disabled]="registrationForm.invalid"
+                (click)="onRegister(registrationForm)">
+                Register
+            </button>
+        </p>
+    </form>
+</div>
