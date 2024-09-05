@@ -8,6 +8,9 @@ export interface AnimeResponse {
     data?: {
         Page: {
             media: AnimeResponseEntity[];
+            pageInfo: {
+                total: number;
+            };
         };
     };
 }

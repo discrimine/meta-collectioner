@@ -1,6 +1,6 @@
 .content {
     width: 100%;
-    height: calc(100vh - 130px);
+    min-height: calc(100vh - 130px);
     padding: 20px;
     box-sizing: border-box;
     background: radial-gradient(circle, rgba(237, 237, 237, 1) 16%, rgba(144, 195, 231, 1) 100%);

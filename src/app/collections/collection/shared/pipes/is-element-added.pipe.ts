@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CollectionElement } from '../../../shared/interfaces/collection-elements.interfaces';
+import { CollectionElement } from '../../../shared/interfaces/collections.interfaces';
 
 @Pipe({
     name: 'isElementAdded',

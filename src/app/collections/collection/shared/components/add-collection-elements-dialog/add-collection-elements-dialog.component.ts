@@ -6,11 +6,14 @@ import { MatInputModule } from '@angular/material/input';
 import { debounceTime, Subscription, switchMap } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
-import { CollectionElement } from '../../../../shared/interfaces/collection-elements.interfaces';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { IsElementAddedPipe } from '../../pipes/is-element-added.pipe';
 import { CollectionAdapterService } from '../../services/collection-adapter.service';
-import { CollectionType } from '../../interfaces/collection.interfaces';
+import {
+    CollectionElement,
+    CollectionType,
+} from '../../../../shared/interfaces/collections.interfaces';
 
 @Component({
     selector: 'app-add-collection-elements-dialog',
@@ -24,6 +27,7 @@ import { CollectionType } from '../../interfaces/collection.interfaces';
         MatProgressSpinnerModule,
         MatCardModule,
         IsElementAddedPipe,
+        MatPaginatorModule,
     ],
     providers: [IsElementAddedPipe],
     templateUrl: './add-collection-elements-dialog.component.html',
@@ -34,6 +38,7 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
     public isLoading = false;
     public foundElements: CollectionElement[] = [];
     public elementsToAdd: CollectionElement[] = [];
+    public totalElements = 0;
 
     private subscriptions: Subscription = new Subscription();
 
@@ -52,14 +57,17 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
                     debounceTime(500),
                     switchMap(searchTerm => {
                         this.isLoading = true;
+                        this.foundElements = [];
+
                         return this.collectionAdapterService.getList(
                             this.data.collectionType,
                             searchTerm
                         );
                     })
                 )
-                .subscribe(value => {
-                    this.foundElements = value;
+                .subscribe(collectionData => {
+                    this.foundElements = collectionData.collections;
+                    this.totalElements = collectionData.total;
                     this.isLoading = false;
                 })
         );
@@ -79,6 +87,25 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
 
     public saveElementsInCollection(): void {
         this.matDialogRef.close(this.elementsToAdd);
+    }
+
+    public onPaginatorChange(event: PageEvent): void {
+        this.subscriptions.add(
+            this.collectionAdapterService
+                .getList(
+                    this.data.collectionType,
+                    this.searchInput.value,
+                    event.pageSize,
+                    event.pageIndex
+                )
+                .subscribe(collectionsData => {
+                    this.foundElements = collectionsData.collections;
+                    this.totalElements = collectionsData.total;
+                    this.isLoading = false;
+                })
+        );
+        this.isLoading = true;
+        this.foundElements = [];
     }
 
     ngOnDestroy(): void {

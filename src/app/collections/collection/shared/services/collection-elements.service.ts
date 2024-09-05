@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CollectionElement } from '../../../shared/interfaces/collection-elements.interfaces';
 import { Observable, of } from 'rxjs';
-import { Collection } from '../../../shared/interfaces/collections.interfaces';
+import { Collection, CollectionElement } from '../../../shared/interfaces/collections.interfaces';
 
 @Injectable({
     providedIn: 'root',
