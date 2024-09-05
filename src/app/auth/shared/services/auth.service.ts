@@ -64,8 +64,6 @@ export class AuthService {
                 loggingUser.password == existingUser.password
         );
 
-        console.log(loggingUser, loggedUser);
-
         if (loggedUser) {
             const user: User = {
                 id: loggedUser.id,
