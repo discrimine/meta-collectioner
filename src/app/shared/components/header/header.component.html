@@ -8,8 +8,8 @@
         <button mat-button routerLink="/">Home</button>
         <button mat-button routerLink="/collections">Collections</button>
         <button mat-button routerLink="/about">About</button>
-        <button mat-icon-button>
-            <mat-icon>account_circle</mat-icon>
-        </button>
+
+        <button mat-button *ngIf="!isLoggedIn" routerLink="/login" color="secondary">Login</button>
+        <button mat-button *ngIf="isLoggedIn" (click)="onLogout()">Logout</button>
     </div>
 </mat-toolbar>

@@ -1,0 +1,29 @@
+.login_container {
+    width: 300px;
+    margin: 100px auto;
+
+    .login_container__name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+        margin-bottom: 20px;
+        color: rgb(110, 115, 119);
+    }
+
+    .login_container__form_field {
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    label {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 20px;
+    }
+}
