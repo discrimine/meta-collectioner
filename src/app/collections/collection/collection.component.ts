@@ -13,9 +13,9 @@ import { Collection, CollectionElement } from '../shared/interfaces/collections.
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PipesModule } from './shared/pipes/pipes.module';
 import { CollectionElementsService } from './shared/services/collection-elements.service';
 import { DeleteDialogComponent } from '../shared/components/delete-dialog/delete-dialog.component';
+import { SearchPipe } from './shared/pipes/search.pipe';
 
 @Component({
     selector: 'app-collection',
@@ -28,7 +28,7 @@ import { DeleteDialogComponent } from '../shared/components/delete-dialog/delete
         MatProgressSpinnerModule,
         CommonModule,
         FormsModule,
-        PipesModule,
+        SearchPipe,
     ],
     templateUrl: './collection.component.html',
     styleUrl: './collection.component.scss',

@@ -3,6 +3,7 @@ import { CollectionElement } from '../../../shared/interfaces/collections.interf
 
 @Pipe({
     name: 'search',
+    standalone: true,
 })
 export class SearchPipe implements PipeTransform {
     transform(value: CollectionElement[], searchText: string): CollectionElement[] {
