@@ -75,10 +75,13 @@
     }
 
     span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         margin-top: 5px;
         text-align: center;
+        display: block;
+        color: white;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 100%;
     }
 }

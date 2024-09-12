@@ -16,6 +16,7 @@
         <mat-spinner class="collection__spinner"></mat-spinner>
     } @else {
         @for (element of collection.elements; track element.id) {
+            <!-- TODO: refactor, move card to shared component, and reuse in collection component AND add-collection-elements-dialog -->
             <mat-card appearance="outlined" class="collection__anime_card">
                 <mat-card-content>
                     <div class="collection_mask">
