@@ -21,14 +21,17 @@
                     class="collection_card"
                     [ngClass]="{ added: element | isElementAdded: elementsToAdd }">
                     <mat-card-content>
-                        <img [src]="element.cover" [alt]="element.title" />
+                        <img *ngIf="!!element.cover" [src]="element.cover" [alt]="element.title" />
+                        <!-- TODO: use own no image placeholder -->
+                        <img
+                            *ngIf="!element.cover"
+                            src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
+                            [alt]="element.title" />
                         <span> {{ element.title }} </span>
                     </mat-card-content>
                 </mat-card>
             } @empty {
-                <div class="collection_emty">
-                    No added {{ data.collectionName | lowercase }} yet
-                </div>
+                <div class="collection_emty">No {{ data.collectionName | lowercase }} here...</div>
             }
         }
     </div>
@@ -46,9 +49,9 @@
 <ng-template #paginator>
     <mat-paginator
         class="collection_action__paginator"
-        [length]="totalElements || 0"
-        [pageSize]="25"
-        [pageSizeOptions]="[5, 10, 25, 40]"
+        [length]="pageInfo.length"
+        [pageIndex]="pageInfo.pageIndex"
+        [pageSize]="20"
         aria-label="Select page"
         (page)="onPaginatorChange($event)">
     </mat-paginator>

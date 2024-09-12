@@ -1,6 +1,8 @@
 export enum CollectionType {
     Anime = 'anime',
     Books = 'books',
+    Movies = 'movies',
+    TVSHOWS = 'tvshows',
 }
 
 export interface Collection {

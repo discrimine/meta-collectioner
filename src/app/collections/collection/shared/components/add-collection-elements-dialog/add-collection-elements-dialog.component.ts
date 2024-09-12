@@ -38,7 +38,10 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
     public isLoading = false;
     public foundElements: CollectionElement[] = [];
     public elementsToAdd: CollectionElement[] = [];
-    public totalElements = 0;
+    public pageInfo: { pageIndex: number; length: number } = {
+        pageIndex: 0,
+        length: 0,
+    };
 
     private subscriptions: Subscription = new Subscription();
 
@@ -58,16 +61,18 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
                     switchMap(searchTerm => {
                         this.isLoading = true;
                         this.foundElements = [];
+                        this.pageInfo.pageIndex = 0;
 
                         return this.collectionAdapterService.getList(
                             this.data.collectionType,
-                            searchTerm
+                            searchTerm,
+                            0
                         );
                     })
                 )
                 .subscribe(collectionData => {
                     this.foundElements = collectionData.collections;
-                    this.totalElements = collectionData.total;
+                    this.pageInfo.length = collectionData.total;
                     this.isLoading = false;
                 })
         );
@@ -90,22 +95,21 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
     }
 
     public onPaginatorChange(event: PageEvent): void {
-        this.subscriptions.add(
-            this.collectionAdapterService
-                .getList(
-                    this.data.collectionType,
-                    this.searchInput.value,
-                    event.pageSize,
-                    event.pageIndex
-                )
-                .subscribe(collectionsData => {
-                    this.foundElements = collectionsData.collections;
-                    this.totalElements = collectionsData.total;
-                    this.isLoading = false;
-                })
-        );
-        this.isLoading = true;
-        this.foundElements = [];
+        this.pageInfo.pageIndex = event.pageIndex;
+
+        if (this.searchInput.value) {
+            this.isLoading = true;
+            this.foundElements = [];
+
+            this.subscriptions.add(
+                this.collectionAdapterService
+                    .getList(this.data.collectionType, this.searchInput.value, event.pageIndex)
+                    .subscribe(collectionsData => {
+                        this.foundElements = collectionsData.collections || [];
+                        this.isLoading = false;
+                    })
+            );
+        }
     }
 
     ngOnDestroy(): void {

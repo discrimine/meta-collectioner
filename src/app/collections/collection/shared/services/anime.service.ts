@@ -12,7 +12,10 @@ import {
 export class AnimeService {
     constructor(private httpClient: HttpClient) {}
 
-    public getList(search = '', perPage = 25, page = 1): Observable<CollectionData> {
+    public getList(search = '', page = 0): Observable<CollectionData> {
+        // Anime api starts from page 1
+        page++;
+
         const query = `
         query ($search: String, $page: Int, $perPage: Int) {
             Page (page: $page, perPage: $perPage) {
@@ -34,7 +37,7 @@ export class AnimeService {
         const variables = {
             search: search,
             page: page,
-            perPage: perPage,
+            perPage: 20,
         };
 
         return this.httpClient

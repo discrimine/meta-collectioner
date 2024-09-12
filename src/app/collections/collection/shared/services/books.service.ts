@@ -9,29 +9,28 @@ import { CollectionData } from '../../../shared/interfaces/collections.interface
 })
 export class BooksService {
     private readonly apiKey = 'AIzaSyAi4Tmx52GBkgZNU2jbhGYxRt2WbdAhQxU';
+
     constructor(private httpClient: HttpClient) {}
 
-    public getList(
-        search = '',
-        maxResults: number = 25,
-        startIndex: number = 0
-    ): Observable<CollectionData> {
-        startIndex = maxResults * startIndex;
+    public getList(search = '', page: number = 0): Observable<CollectionData> {
+        const startIndex = 20 * page;
+
         return this.httpClient
             .get<BooksResponse>(
-                `https://www.googleapis.com/books/v1/volumes?q=${search}&printType=books&maxResults=${maxResults}&startIndex=${startIndex}&key=${this.apiKey}&projection=lite`
+                `https://www.googleapis.com/books/v1/volumes?q=${search}&printType=books&maxResults=20&startIndex=${startIndex}&key=${this.apiKey}`
             )
             .pipe(
                 map((response: BooksResponse) => {
                     return {
                         total: response.totalItems,
-                        collections: response.items.map((book: BookResponseEntity) => {
-                            return {
-                                id: book.id,
-                                title: book.volumeInfo.title,
-                                cover: book.volumeInfo.imageLinks?.smallThumbnail,
-                            };
-                        }),
+                        collections:
+                            response.items?.map((book: BookResponseEntity) => {
+                                return {
+                                    id: book.id,
+                                    title: book.volumeInfo.title,
+                                    cover: book.volumeInfo.imageLinks?.smallThumbnail,
+                                };
+                            }) || [],
                     };
                 })
             );
