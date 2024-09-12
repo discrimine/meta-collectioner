@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../auth/shared/services/auth.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,7 +18,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public isLoggedIn = false;
     private authStatusSubscription: Subscription = new Subscription();
 
-    constructor(private authService: AuthService) {}
+    constructor(
+        private authService: AuthService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.authStatusSubscription.add(
@@ -34,5 +37,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     onLogout() {
         this.authService.logout();
+        this.router.navigate(['/login']);
     }
 }

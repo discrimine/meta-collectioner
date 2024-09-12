@@ -1,26 +1,24 @@
 <div class="login_container">
     <div class="login_container__name">Login</div>
     <form>
-        <p>
-            <mat-form-field appearance="fill">
-                <input
-                    matInput
-                    type="text"
-                    [(ngModel)]="loginObj.login"
-                    name="username"
-                    placeholder="Username" />
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field appearance="fill">
-                <input
-                    matInput
-                    type="password"
-                    [(ngModel)]="loginObj.password"
-                    name="password"
-                    placeholder="Password" />
-            </mat-form-field>
-        </p>
+        <mat-form-field appearance="fill" class="login_container__form_field">
+            <input
+                matInput
+                type="text"
+                [(ngModel)]="loginObj.login"
+                name="username"
+                placeholder="Username" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="login_container__form_field">
+            <input
+                matInput
+                type="password"
+                [(ngModel)]="loginObj.password"
+                name="password"
+                placeholder="Password" />
+        </mat-form-field>
+
         <p>
             <button mat-raised-button color="primary" (click)="onLogin()">Login</button>
         </p>
