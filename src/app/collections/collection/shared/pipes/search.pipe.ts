@@ -6,7 +6,7 @@ import { CollectionElement } from '../../../shared/interfaces/collections.interf
 })
 export class SearchPipe implements PipeTransform {
     transform(value: CollectionElement[], searchText: string): CollectionElement[] {
-        if (!value || !searchText) return value;
+        if (!value || !searchText) return value; //return array without filtering
 
         searchText = searchText.toLowerCase();
 
