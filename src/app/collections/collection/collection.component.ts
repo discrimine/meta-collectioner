@@ -11,7 +11,9 @@ import { AddCollectionElementsDialogComponent } from './shared/components/add-co
 import { MyCollectionsService } from '../shared/services/my-collections.service';
 import { Collection, CollectionElement } from '../shared/interfaces/collections.interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PipesModule } from './shared/pipes/pipes.module';
 import { CollectionElementsService } from './shared/services/collection-elements.service';
 import { DeleteDialogComponent } from '../shared/components/delete-dialog/delete-dialog.component';
 
@@ -25,11 +27,14 @@ import { DeleteDialogComponent } from '../shared/components/delete-dialog/delete
         MatCardModule,
         MatProgressSpinnerModule,
         CommonModule,
+        FormsModule,
+        PipesModule,
     ],
     templateUrl: './collection.component.html',
     styleUrl: './collection.component.scss',
 })
 export class CollectionComponent implements OnInit, OnDestroy {
+    searchText: string = '';
     public isLoading: boolean = false;
     public collection!: Collection;
 
