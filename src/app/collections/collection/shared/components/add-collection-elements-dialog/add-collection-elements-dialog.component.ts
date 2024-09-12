@@ -4,12 +4,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime, Subscription, switchMap } from 'rxjs';
-import { AnimeService } from '../../services/anime.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
-import { CollectionElement } from '../../../../shared/interfaces/collection-elements.interfaces';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { IsElementAddedPipe } from '../../pipes/is-element-added.pipe';
+import { CollectionAdapterService } from '../../services/collection-adapter.service';
+import {
+    CollectionElement,
+    CollectionType,
+} from '../../../../shared/interfaces/collections.interfaces';
 
 @Component({
     selector: 'app-add-collection-elements-dialog',
@@ -23,6 +27,7 @@ import { IsElementAddedPipe } from '../../pipes/is-element-added.pipe';
         MatProgressSpinnerModule,
         MatCardModule,
         IsElementAddedPipe,
+        MatPaginatorModule,
     ],
     providers: [IsElementAddedPipe],
     templateUrl: './add-collection-elements-dialog.component.html',
@@ -33,12 +38,14 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
     public isLoading = false;
     public foundElements: CollectionElement[] = [];
     public elementsToAdd: CollectionElement[] = [];
+    public totalElements = 0;
 
     private subscriptions: Subscription = new Subscription();
 
     constructor(
-        @Inject(MAT_DIALOG_DATA) public data: { collectionName: string },
-        private animeService: AnimeService,
+        @Inject(MAT_DIALOG_DATA)
+        public data: { collectionName: string; collectionType: CollectionType },
+        private collectionAdapterService: CollectionAdapterService,
         private isElementAdded: IsElementAddedPipe,
         private matDialogRef: MatDialogRef<AddCollectionElementsDialogComponent>
     ) {}
@@ -50,11 +57,17 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
                     debounceTime(500),
                     switchMap(searchTerm => {
                         this.isLoading = true;
-                        return this.animeService.getList(searchTerm);
+                        this.foundElements = [];
+
+                        return this.collectionAdapterService.getList(
+                            this.data.collectionType,
+                            searchTerm
+                        );
                     })
                 )
-                .subscribe(value => {
-                    this.foundElements = value;
+                .subscribe(collectionData => {
+                    this.foundElements = collectionData.collections;
+                    this.totalElements = collectionData.total;
                     this.isLoading = false;
                 })
         );
@@ -74,6 +87,25 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
 
     public saveElementsInCollection(): void {
         this.matDialogRef.close(this.elementsToAdd);
+    }
+
+    public onPaginatorChange(event: PageEvent): void {
+        this.subscriptions.add(
+            this.collectionAdapterService
+                .getList(
+                    this.data.collectionType,
+                    this.searchInput.value,
+                    event.pageSize,
+                    event.pageIndex
+                )
+                .subscribe(collectionsData => {
+                    this.foundElements = collectionsData.collections;
+                    this.totalElements = collectionsData.total;
+                    this.isLoading = false;
+                })
+        );
+        this.isLoading = true;
+        this.foundElements = [];
     }
 
     ngOnDestroy(): void {

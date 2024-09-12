@@ -2,10 +2,13 @@
     Add elements to your {{ data.collectionName }} collection
 </h2>
 <mat-dialog-content>
-    <mat-form-field class="collection_search">
-        <mat-label>Search</mat-label>
-        <input [formControl]="searchInput" matInput />
-    </mat-form-field>
+    <div class="collection_actions">
+        <mat-form-field class="collection_actions__search">
+            <mat-label>Search</mat-label>
+            <input [formControl]="searchInput" matInput />
+        </mat-form-field>
+        <ng-container *ngTemplateOutlet="paginator"> </ng-container>
+    </div>
 
     <div class="collection_container">
         @if (isLoading) {
@@ -23,10 +26,15 @@
                     </mat-card-content>
                 </mat-card>
             } @empty {
-                <div class="collection_emty">No added anime yet</div>
+                <div class="collection_emty">
+                    No added {{ data.collectionName | lowercase }} yet
+                </div>
             }
         }
     </div>
+    <ng-container *ngIf="foundElements && foundElements.length >= 40"
+        ><ng-container *ngTemplateOutlet="paginator"></ng-container
+    ></ng-container>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
@@ -34,3 +42,14 @@
         Add
     </button>
 </mat-dialog-actions>
+
+<ng-template #paginator>
+    <mat-paginator
+        class="collection_action__paginator"
+        [length]="totalElements || 0"
+        [pageSize]="25"
+        [pageSizeOptions]="[5, 10, 25, 40]"
+        aria-label="Select page"
+        (page)="onPaginatorChange($event)">
+    </mat-paginator>
+</ng-template>

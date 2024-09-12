@@ -7,8 +7,14 @@ mat-dialog-content {
     text-align: center;
 }
 
-.collection_search {
-    width: 400px;
+.collection_actions {
+    display: flex;
+    justify-content: center;
+
+    .collection_actions__search {
+        flex: 1;
+        max-width: 400px;
+    }
 }
 
 .collection_container {
@@ -43,7 +49,7 @@ mat-dialog-content {
 
     img {
         width: 100%;
-        height: 250px;
+        height: 150px;
     }
 
     span {

@@ -3,18 +3,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-    selector: 'app-remove-collection-dialog',
+    selector: 'app-delete-dialog',
     standalone: true,
     imports: [MatDialogModule, MatButtonModule],
-    templateUrl: './remove-collection-dialog.component.html',
-    styleUrl: './remove-collection-dialog.component.scss',
+    templateUrl: './delete-dialog.component.html',
+    styleUrl: './delete-dialog.component.scss',
 })
-export class RemoveCollectionDialogComponent {
+export class DeleteDialogComponent {
     constructor(
-        public dialogRef: MatDialogRef<RemoveCollectionDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { collectionName: string }
+        public dialogRef: MatDialogRef<DeleteDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: { message: string }
     ) {}
-
     onCancel(): void {
         this.dialogRef.close(false);
     }
