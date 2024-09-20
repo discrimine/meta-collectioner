@@ -44,7 +44,11 @@ mat-dialog-content {
     border-radius: 10px;
 
     &.added {
-        border-color: red;
+        background-color: rgb(33, 122, 45);
+    }
+
+    &.in_colletion {
+        opacity: 0.6;
     }
 
     img {

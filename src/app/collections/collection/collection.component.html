@@ -1,6 +1,12 @@
 <div class="collection_tools">
     <mat-form-field class="collection_tools__search">
-        <input matInput placeholder="Search" value="" />
+        <input
+            matInput
+            placeholder="Search"
+            type="text"
+            name="search"
+            [(ngModel)]="searchText"
+            autocomplete="off" />
     </mat-form-field>
     <mat-icon class="collection_tools__icon">sort</mat-icon>
     <mat-icon (click)="openAddCollectionElementsDialog()" class="collection_tools__icon"
@@ -15,7 +21,7 @@
     @if (isLoading) {
         <mat-spinner class="collection__spinner"></mat-spinner>
     } @else {
-        @for (element of collection.elements; track element.id) {
+        @for (element of collection.elements | search: searchText; track element.id) {
             <!-- TODO: refactor, move card to shared component, and reuse in collection component AND add-collection-elements-dialog -->
             <mat-card appearance="outlined" class="collection__anime_card">
                 <mat-card-content>
