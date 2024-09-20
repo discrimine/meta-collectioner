@@ -19,7 +19,16 @@
                     (click)="addRemoveElement(element)"
                     appearance="outlined"
                     class="collection_card"
-                    [ngClass]="{ added: element | isElementAdded: elementsToAdd }">
+                    [ngClass]="{
+                        added: element | isElementAdded: elementsToAdd,
+                        in_colletion: element | isElementAdded: data.collectionElements,
+                    }"
+                    [matTooltip]="
+                        (element | isElementAdded: data.collectionElements)
+                            ? 'Element is already in collections'
+                            : ''
+                    "
+                    matTooltipPosition="above">
                     <mat-card-content>
                         <img *ngIf="!!element.cover" [src]="element.cover" [alt]="element.title" />
                         <!-- TODO: use own no image placeholder -->

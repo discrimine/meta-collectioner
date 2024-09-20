@@ -92,7 +92,11 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
     public openAddCollectionElementsDialog(): void {
         const dialofRef = this.dialog.open(AddCollectionElementsDialogComponent, {
-            data: { collectionName: this.collection.title, collectionType: this.collection.id },
+            data: {
+                collectionName: this.collection.title,
+                collectionType: this.collection.id,
+                collectionElements: this.collection.elements,
+            },
             width: '80vw',
             height: '80vh',
         });
