@@ -1,11 +1,13 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime, Subscription, switchMap } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { IsElementAddedPipe } from '../../pipes/is-element-added.pipe';
@@ -28,6 +30,7 @@ import {
         MatCardModule,
         IsElementAddedPipe,
         MatPaginatorModule,
+        MatTooltipModule,
     ],
     providers: [IsElementAddedPipe],
     templateUrl: './add-collection-elements-dialog.component.html',
@@ -38,6 +41,7 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
     public isLoading = false;
     public foundElements: CollectionElement[] = [];
     public elementsToAdd: CollectionElement[] = [];
+    private readonly snackBar = inject(MatSnackBar);
     public pageInfo: { pageIndex: number; length: number } = {
         pageIndex: 0,
         length: 0,
@@ -47,7 +51,11 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
 
     constructor(
         @Inject(MAT_DIALOG_DATA)
-        public data: { collectionName: string; collectionType: CollectionType },
+        public data: {
+            collectionName: string;
+            collectionType: CollectionType;
+            collectionElements: CollectionElement[];
+        },
         private collectionAdapterService: CollectionAdapterService,
         private isElementAdded: IsElementAddedPipe,
         private matDialogRef: MatDialogRef<AddCollectionElementsDialogComponent>
@@ -79,7 +87,10 @@ export class AddCollectionElementsDialogComponent implements OnInit, OnDestroy {
     }
 
     public addRemoveElement(actionElement: CollectionElement): void {
-        if (!this.isElementAdded.transform(actionElement, this.elementsToAdd)) {
+        if (
+            !this.isElementAdded.transform(actionElement, this.elementsToAdd) &&
+            !this.isElementAdded.transform(actionElement, this.data.collectionElements)
+        ) {
             this.elementsToAdd.push(actionElement);
         } else {
             this.elementsToAdd = this.elementsToAdd.filter(

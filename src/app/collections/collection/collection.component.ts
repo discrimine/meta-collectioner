@@ -11,9 +11,11 @@ import { AddCollectionElementsDialogComponent } from './shared/components/add-co
 import { MyCollectionsService } from '../shared/services/my-collections.service';
 import { Collection, CollectionElement } from '../shared/interfaces/collections.interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CollectionElementsService } from './shared/services/collection-elements.service';
 import { DeleteDialogComponent } from '../shared/components/delete-dialog/delete-dialog.component';
+import { SearchPipe } from './shared/pipes/search.pipe';
 
 @Component({
     selector: 'app-collection',
@@ -25,11 +27,14 @@ import { DeleteDialogComponent } from '../shared/components/delete-dialog/delete
         MatCardModule,
         MatProgressSpinnerModule,
         CommonModule,
+        FormsModule,
+        SearchPipe,
     ],
     templateUrl: './collection.component.html',
     styleUrl: './collection.component.scss',
 })
 export class CollectionComponent implements OnInit, OnDestroy {
+    searchText: string = '';
     public isLoading: boolean = false;
     public collection!: Collection;
 
@@ -87,7 +92,11 @@ export class CollectionComponent implements OnInit, OnDestroy {
 
     public openAddCollectionElementsDialog(): void {
         const dialofRef = this.dialog.open(AddCollectionElementsDialogComponent, {
-            data: { collectionName: this.collection.title, collectionType: this.collection.id },
+            data: {
+                collectionName: this.collection.title,
+                collectionType: this.collection.id,
+                collectionElements: this.collection.elements,
+            },
             width: '80vw',
             height: '80vh',
         });
